@@ -95,29 +95,13 @@ The solution we propose is an automatic tool checker that would be able to asses
 But what means qualifies a code as being functional? What are the specifics of a functional code? These are some of the questions that we have to answer first, in order to come up with metrics for code functional-ness.
 
 \section {Methodology}
- We will begin our study by studying what are FP propertises and then try to figure out and propose a set of metrics that would check on FP-like properties.\par
+
+ We will begin our  FP propertises and then try to figure out and propose a set of metrics that would check on FP-like properties.\par
 
 We should ask ourselves a series of questions in order to come close to an answer; such questions would be: `how much does a method uses functional programming concepts?` Does it contain only immutable data, so no shared state? Does it use higher order functions for data processing? Does a method use advanced features such as monadic comprehension? Does a method use functional-like constructs such as anonymous inner classes? \par
 
-We have to first decide upon the patterns that are most relevant (maybe also create a simple DSL for choosing the FP features we want to measure ) and study about the compiler support for performing such analysis (Scala compiler plug-ins). Next section presents some of the targeted FP features that we will try to measure in order to compute a metrice. \par
+We have to first decide upon the patterns that are most relevant and study about the compiler support for performing such analysis (Scala compiler plug-ins). Next section presents some of the targeted FP features that we will try to measure in order to compute a metrice. \par
 
-
-\section {Literature study}
-
-   It is in this context that we start our study on functional programming and the pursue of searching and understanding its features. One of the features pointed out by John Hughes \cite{DBLP:journals/cj/Hughes89} in 'Why Functional Programming Matters' are higher- order functions and lazy evaluation; Hughes argues that these two concepts greatly increase the modularity of software by providing novative ways (compared to other structured programming techniques) of 'gluing' modules together so programs can become more concise and easier to reason about. One other design pattern that was first approached in Haskel and targets modularity by emphasizing on composition is represented by monads which model the concept of a category (see \ref{monads}). \par 
-
-There is no previous work in developing a metric for code functional-ness. There is only a paper published by K. van den Berg \cite{DBLP:journals/infsof/BergB95} that handles static anlysis of functional programming. In the industry there are just a couple of static analysis tools written for Scala : 'ScalaStyle' that is a scala style checker  (implemented rules can be found at http://www.scalastyle.org/rules-0.7.0.html) and ScapeGoat plugin (https://github.com/sksamuel/scalac-scapegoat-plugin) but neither of them investigate functional features. \par
-
-
-\section{Research questions}
-Scala provides an API to extend its compiler through Scala compiler plugins; how they work is that they insert custom functionality at different stages of the compilation; of course this could lead to errors, if used improperly. Unfortunately, there are only a limited amount of resources online (http://lampwww.epfl.ch/~magarcia/ScalaCompilerCornerReloaded/) that talk about how to create plugins. \par
-
-
-There is already a scala build tool plugin named 
-
-The only paper published on FP analysis was  'Static analysis of functional programms'  ; still, we could not find a paper that handles code 'functional-ness' the way we presented above.\par
-
-\section{ Targeted functional programming features for the study }
 \subsection {Immutability}
 If a variable/object is immutable then it's value never changes. That is a really usefull guarantee if one plans on going concurrent: any such value can be safely shared amongst treads since the value is read-only. Another advantage is the reduced aliasing between different parts of the program; one can say that immutable objects are easier to reason about and also their API is straight forward because you don't need to reason about internal state changes - everything is transparent compared to mutable objects that introduce opaqueness in reasoning about their possible states at different moments of time . \par
 Scala encourages immutability through case classes, which provide a syntatic sugar for creating immutable objects (data structures). Case classes are regular classes which export their constructor parameters and which provide a recursive decomposition mechanism via pattern matching.
@@ -244,6 +228,23 @@ object Test {
 }
 
 \end{lstlisting}
+
+\section {Literature study}
+
+   It is in this context that we start our study on functional programming and the pursue of searching and understanding its features. One of the features pointed out by John Hughes \cite{DBLP:journals/cj/Hughes89} in 'Why Functional Programming Matters' are higher- order functions and lazy evaluation; Hughes argues that these two concepts greatly increase the modularity of software by providing novative ways (compared to other structured programming techniques) of 'gluing' modules together so programs can become more concise and easier to reason about. One other design pattern that was first approached in Haskel and targets modularity by emphasizing on composition is represented by monads which model the concept of a category (see \ref{monads}). \par 
+
+There is no previous work in developing a metric for code functional-ness. There is only a paper published by K. van den Berg \cite{DBLP:journals/infsof/BergB95} that handles static anlysis of functional programming. In the industry there are just a couple of static analysis tools written for Scala : 'ScalaStyle' that is a scala style checker  (implemented rules can be found at http://www.scalastyle.org/rules-0.7.0.html) and ScapeGoat plugin (https://github.com/sksamuel/scalac-scapegoat-plugin) but neither of them investigate functional features. \par
+
+
+\section{Research questions}
+Scala provides an API to extend its compiler through Scala compiler plugins; how they work is that they insert custom functionality at different stages of the compilation; of course this could lead to errors, if used improperly. Unfortunately, there are only a limited amount of resources online (http://lampwww.epfl.ch/~magarcia/ScalaCompilerCornerReloaded/) that talk about how to create plugins. \par
+
+
+There is already a scala build tool plugin named 
+
+The only paper published on FP analysis was  'Static analysis of functional programms'  ; still, we could not find a paper that handles code 'functional-ness' the way we presented above.\par
+
+\section{ Targeted functional programming features for the study }
 
 
 
