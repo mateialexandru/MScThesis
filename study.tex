@@ -45,7 +45,7 @@
   tabsize=3
 }
 
-\title{Research Study - Functional Programming Languages}
+\title{Research Study - Metrics for code 'functional-ness' in Scala }
 \date{\today}
 \author{Alexandru Matei}
 
@@ -83,21 +83,36 @@ One of its success factors is  Scala's JVM compatibility and code interoperabili
   \label{fig:interest}
 \end{figure}
 
-Another reason why FP comes in handy nowadays is that multiprocessor architectures become ubiquitous and developers need to get more familiar with distributed and multi-threaded computing; programming with shared state has proven to be pretty difficult to reason about and functional programming offers to save a lot of headaches by removing shared state from the equation and providing better concurrency abstractions (Futures, Actors) and we should also consider  the exceptional distribution capabilities of map-reduce that FP offers. Although the programming paradigm was born more than 80 years ago, FP seems like a totally new way of thinking about software to modern day developers, havin  lots of secret gems left to be discovered. \par
+Another reason why FP comes in handy nowadays is that multiprocessor architectures become ubiquitous and developers need to get more familiar with distributed and multi-threaded computing; programming with shared state has proven to be pretty difficult to reason about and functional programming offers to save a lot of headaches by removing shared state from the equation and providing better concurrency abstractions (Futures, Actors) and we should also consider  the exceptional distribution capabilities of map-reduce that FP offers. Although the programming paradigm was born more than 80 years ago, FP seems like a totally new way of thinking about software to modern day developers, having lots of secret gems left to be discovered. \par
 
-It is in this context that we start our study on functional programming and the pursue of searching and understanding its features. One of the features pointed out by John Hughes \cite{DBLP:journals/cj/Hughes89} in 'Why Functional Programming Matters' are higher- order functions and lazy evaluation; Hughes argues that these two concepts greatly increase the modularity of software by providing novative ways (compared to other structured programming techniques) of 'gluing' modules together so programs can become more concise and easier to reason about. One other design pattern that was first approached in Haskel and targets modularity by emphasizing on composition is represented by monads which model the concept of a category (see \ref{monads}). \par 
+\section {Problem description}
+Using the features of functional programming should lead to less code which in turn usually leads to less bugs and better understandability. \par
 
-This study is targeting Scala programming language and further extends to pure functional languages such as Haskell or even  further, all the way back to Church's lambda calculus.\par
+
+Scala  occuppies a worthy 14th position in 'RedMonk Programming Language Rankings' \cite{redmonk:1}; Scala developers benefit from a growing Scala community, a lot of online materials addressed to both novices and advanced developers (introduction online courses, step-by-step guides, Twitter's Scala guide etc.) . There are general guidelines on how to approach one problem in a functional perspective, with parallels on OO programming, there are even automated tools for style checking Scala code (see ScalaStyle). Yet Scala language supports both Object Oriented and Functional Programming paradigm.  
 
 
-\section{Research questions}
-Using the features of functional programming should lead to less  code which in turn usually leads to less bugs and better understandability. The problem is the the language can not protect you from yourself, so it cannot enforce a functional style of programming, e.g. one can write fully procedural code in an object oriented language like Java or she can write only object oriented code in Scala; so one can say he writes code in Scala so he uses FP when in fact his code base is entirely procedural. I was also put in such a position,  being one of the many  developers that  switched from an OO language(Java /C\#/C++xs etc.)  to a functional language such as Scala. So how can we figure out if our code follows the FP principles or not?  \par 
+
+
+yet when you ask the question: `Is this Scala code making the most out of the functional programming paradigm? ` it's really difficult to find an answer, at least if you don't have an FP expert nearby. One solution to this problem with be an automatic tool checker that would be able to asses one's code `functional-ness' and to guide the Scala programmer through the coding process and help him understand what features of FP he is using or missing on. But what means that a code is functional? How can we figure that out? What are the specifics of a functional code? Our study would like begin with lookin for such kind of FP propertises and then try to figure out and propose a set of metrics that would check on FP-like properties.\par
+
+
+
+Only that the language can not protect you from yourself, so it cannot enforce a functional style of programming, e.g. one can write fully procedural code in an object oriented language like Java or she can write only object oriented code in Scala; so one can say he writes code in Scala so he uses FP when in fact his code base is entirely procedural. I was also put in such a position,  being one of the many  developers that  switched from an OO language(Java /C\#/C++xs etc.)  to a functional language such as Scala. So how can we figure out if our code follows the FP principles or not?  \par 
 
 We should ask ourselves a series of questions in order to come close to an answer; such questions would be: `how much does a method uses functional programming concepts?` Does it contain only immutable data, so no shared state? Does it use higher order functions for data processing? Does a method use advanced features such as monadic comprehension? Does a method use functional-like constructs such as anonymous inner classes? \par
 
 Starting from these simple questions we should be able to come up with a metric that can be applied when statically analyzing code in order to signal the presence/absence of functional programming patterns. \par
 
 We have to first decide upon the patterns that are most relevant (maybe also create a simple DSL for choosing the FP features we want to measure ) and study about the compiler support for performing such analysis (Scala compiler plug-ins). Next section presents some of the targeted FP features that we will try to measure in order to compute a metrice. \par
+
+
+
+
+
+\section{Research questions}
+
+   It is in this context that we start our study on functional programming and the pursue of searching and understanding its features. One of the features pointed out by John Hughes \cite{DBLP:journals/cj/Hughes89} in 'Why Functional Programming Matters' are higher- order functions and lazy evaluation; Hughes argues that these two concepts greatly increase the modularity of software by providing novative ways (compared to other structured programming techniques) of 'gluing' modules together so programs can become more concise and easier to reason about. One other design pattern that was first approached in Haskel and targets modularity by emphasizing on composition is represented by monads which model the concept of a category (see \ref{monads}). \par 
 
 There is no previous work in developing a metric for code functional-ness. There is only a paper published by K. van den Berg \cite{DBLP:journals/infsof/BergB95} that handles static anlysis of functional programming. In the industry there are just a couple of static analysis tools written for Scala : 'ScalaStyle' that is a scala style checker  (implemented rules can be found at http://www.scalastyle.org/rules-0.7.0.html) and ScapeGoat plugin (https://github.com/sksamuel/scalac-scapegoat-plugin) but neither of them investigate functional features. \par
 
