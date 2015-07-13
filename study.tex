@@ -61,7 +61,7 @@
 \begin{center}
 Master Student Name: Alexandru Matei \par
 Supervisor Name : Marius Minea \par
-Dissertation Domain: Software engineering - functional programming
+Dissertation Domain: Software engineering - Functional Programming
 \end{center}
 
 \vfill
@@ -239,12 +239,36 @@ object Test {
 
 \section {State of the art - Literature study}
 
-\subsection{Metrics for Modularization Assessment of Scala and C\# Systems}
-Besavaraju Muudu et. al. \cite{DBLP:conf/icse/MudduABP13} propose a series of metrics for Scala that target modularity with respect to Functional Programming features like : referential transparency, functional purity, first order functions and also Object Oriented features such as inheritance. They give the following definition for a module: ' A module is a logical collection of related files which can be modified and tested independently. A well modularized system will have low inter-module coupling and high intra-module cohesion. It helps the designers to add new modules easily.'\cite{DBLP:conf/icse/MudduABP13}. As one can see, this definition does not imply an exact rule for discovering  modules, so the system can contain a variable number of modules, depending how one delimits a module. The technique they chose to use for delimiting system modules  was Modularizing by  Inverse-Depth heuristic, which is based of the project's file directory structure; they start at the source root folder and compute for each branch the maximum depth; then starting from the bottom up, they assign a module up to a certain depth; in their study, they use inverse depth of 1 for selecting modules, arguing that these are the closest approximation to actual logical modules. We would like to try other modularization techniques: package based, SBT (Scala Build Tool)  modularization and relate them to our problem: establishing code functional-ness; would a good result value for our metric lead to great modularity?.\par
+\subsection{Metrics for Modularization Assessment of Scala and C\# Systems }
+
+Basavaraju Muudu et. al. \cite{DBLP:conf/icse/MudduABP13} propose a series of metrics for Scala that target modularity with respect to Functional Programming features like : referential transparency, functional purity, first order functions and also Object Oriented features such as inheritance. They give the following definition for a module: ' A module is a logical collection of related files which can be modified and tested independently. A well modularized system will have low inter-module coupling and high intra-module cohesion. It helps the designers to add new modules easily.'\cite{DBLP:conf/icse/MudduABP13}. As one can see, this definition does not imply an exact rule for discovering  modules, so the system can contain a variable number of modules, depending how one delimits a module. \par
+
+The technique they chose to use for delimiting system modules  was Modularizing by  Inverse-Depth heuristic, which is based of the project's file directory structure; they start at the source root folder and compute for each branch the maximum depth; then starting from the bottom up, they assign a module up to a certain depth; in their study, they use inverse depth of 1 for selecting modules, arguing that these are the closest approximation to actual logical modules. We would like to try other modularization techniques: package based, SBT (Scala Build Tool)  modularization and relate them to our problem: establishing code functional-ness: would a good 'functional-ness' value for our proposed metric lead also to improved modularity?.\par
+
+The metrics for referential transparency - function purity can be easily taken out of the modularity context and be expressed in a general manner, at the level of the whole software system; then a simple description for referential transparency would be expressed as:  \par
+\begin{center}
+\begin{math}
+  RTI = \frac{ | \{ m \in M / Pure(m) \} | } { | M | }
+\end{math}
+\end{center}
+
+Where  M - set of all functions/methods of the software and  Pure(m) - predicate that says if a function is pure or not. In this case, a value close to 1 corresponds to improved referential transparency while one close to 0 says that the property is not satisfied at all. \par
+
+
+\subsection{Software Measurement for Functional Programming } 
+\cite{Ryder04softwaremeasurement}
+
+\subsection{Static analysis of functional programs}
+\cite{DBLP:journals/infsof/BergB95}
+
+\subsection{}
+
+[FROM Muddu ] The system that we designed for Scala relies on the scalac compiler for source code parsing. We developed a plugin to the scalac compiler to visit the AST (Abstract Syntax Tree) created by the compiler. This extracts code metadata like classes, methods, parent-child relationships, method calls, etc., and stores it in a database (MySQL)
+
+The other metrics presented by Muudu et. al. could be of further use if we decide to consider in our analysis also the software modularity ratio and try to establish correlation. As for the rest of the functional properties described in the previous section, we need to figure ourselves some proper metrics for them.
 
 
 
-Before presenting their metrics, we need to first establish the notations we are going to use: \par
 
 
 
