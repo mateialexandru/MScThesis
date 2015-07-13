@@ -45,15 +45,25 @@
   tabsize=3
 }
 
-\title{Research Study - Metrics for code 'functional-ness' in Scala }
+\title{Dissertation proposal - Metrics for code 'functional-ness' in Scala }
 \date{\today}
-\author{Alexandru Matei}
 
 \begin{document}
 
 
+
 \pagenumbering{gobble}
 \maketitle
+
+\vspace{30mm} %5mm vertical space
+
+\begin{center}
+Master Student Name: Alexandru Matei \par
+Supervisor Name : Marius Minea \par
+Dissertation Domain: Software engineering - functional programming metrics
+\end{center}
+
+\vfill
 
 \newpage
 \tableofcontents
@@ -87,17 +97,12 @@ One of its success factors is  Scala's compatibility with Java Virtual Machine h
 
 Another reason why FP comes in handy nowadays is that multiprocessor architectures become ubiquitous and developers need to get more familiar with distributed and multi-threaded computing; programming with shared state has proven to be pretty difficult to reason about and functional programming offers to save a lot of headaches by removing shared state from the equation and providing better concurrency abstractions (Futures, Actors) and we should also consider  the exceptional distribution capabilities of map-reduce that FP offers. Although the programming paradigm was born more than 80 years ago, FP seems like a totally new way of thinking about software to modern day developers, having lots of secret gems left to be discovered. \par
 
-\section {Problem description}
-Scala is a hybrid programming lanaguage being both a functional language and an object oriented one ( cite http://www.scala-lang.org/what-is-scala.html). Using the features of functional programming should lead to less code which in turn usually leads to less bugs and better understandability. K. van den Berg Phd. thesis concludes that 'The results of the experiments show that the programs in a functional lan- guage took significantly less time to develop and were considerably more con- cise and easier to understand than the corresponding programs written in an imperative language' \cite{DBLP:journals/infsof/BergB95}. \par
+\section {Problem statement}
+Scala is a hybrid programming lanaguage being both a functional language and an object oriented one \cite{scalalang:1}.Writing Scala code does not imply you are writing functional code;  there is no mechanism in the language that enforces a functional style of programming; so one can say he writes code in Scala so he uses FP when in fact his code base is entirely procedural. I was also put in such a position,  being one of the many  developers that  switched from an Object Oriented language(Java /C\#/C++xs etc.)  to a functional language such as Scala. So how can one figure out if his Scala code follows the FP principles or not? The classic approach is to ask a functional programming expert for code review, if you are lucky enough to have access to such valuable resources. \par
 
-Writing Scala code does not imply you are writing functional code;  there is no mechanism in the language that enforces a functional style of programming; so one can say he writes code in Scala so he uses FP when in fact his code base is entirely procedural. I was also put in such a position,  being one of the many  developers that  switched from an Object Oriented language(Java /C\#/C++xs etc.)  to a functional language such as Scala. So how can one figure out if his Scala code follows the FP principles or not? The classic approach is to ask a functional programming expert for code review, if you are lucky enough to have access to such valuable resources. Wouldn't it be nicer (and cheaper) to have a free tool that does the code review job for you? \par
+The solution we propose is a set of metrics that should be able to quantify to what degree the code is making use of the functional paradigm. But what  qualifies a code as being functional? What are the specifics of a functional code? These are some of the questions that we have to answer first, in order to come up with metrics for code functional-ness.\par
 
-The solution we propose is an automatic tool checker that would be able to asses one's code `functional-ness'; it should be able to guide the Scala programmer through the coding process and help him understand what features of FP he is using or missing on. We can imagine having a DSL for choosing which are the targeted FP properties for the analysis and receiving an detailed report on the analysis with further guidelines. \par
-
-But what  qualifies a code as being functional? What are the specifics of a functional code? These are some of the questions that we have to answer first, in order to come up with metrics for code functional-ness.\par
-
-
-\section {Methodology}
+\section {Theoretical Foundations}
 First of all we need to establish the characteristics of FP languages, taking Scala as an example. Only then we can elaborate further on the metrics and decide which ones are to be considered for the study. \par
 
 We get to ask ourselves the following questions: `how much does a method uses functional programming concepts?` Does it contain only immutable data, so no shared state? Does it use higher order functions for data processing? Does a method use advanced features such as monadic comprehension? Does a method use functional-like constructs such as anonymous inner classes? \par
@@ -231,7 +236,9 @@ object Test {
 
 \end{lstlisting}
 
-\section {Literature study}
+
+
+\section {State of the art - Literature study}
 
 Current research on functional programming static analysis include Klass van den Berg \cite{DBLP:journals/infsof/BergB95} which studies the use cases of control-flow graphs in Miranda, a pure functional language, same as Haskell; the main focus is on program coprehensibility and they conclude that structured function definitions appear to be easier to understand by novice programmers. \par
 
@@ -251,11 +258,12 @@ As for the industry there are already a couple of static analysis tools written 
 Most of the previous research on functional programming metrics has been targeting program complexity, readability and maintability. Besavaraju Muddo takes the study a step further and developes metrics for studying modularization of FP programs. Static analyzers developed for Scala are mainly linting tools, to support detection of code smells and possible errors. \par
 
 
-\section{Further Research}
+\section{Proposed solution}
 
 Scala provides an API to extend its compiler through Scala compiler plugins; how they work is that they insert custom functionality at different stages of the compilation; of course this could lead to errors, if used improperly. Unfortunately, there are only a limited amount of resources online (http://lampwww.epfl.ch/~magarcia/ScalaCompilerCornerReloaded/) that talk about how to create plugins. \par
 We have to first decide upon the patterns that are most relevant and study about the compiler support for performing such analysis (Scala compiler plug-ins). 
 
+\section{Expected results}
 
 
 \newpage
