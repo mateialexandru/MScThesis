@@ -91,13 +91,12 @@ Another reason why FP comes in handy nowadays is that multiprocessor architectur
 \section {Problem description}
 Scala is a hybrid programming lanaguage being both a functional language and an object oriented one ( cite http://www.scala-lang.org/what-is-scala.html). Using the features of functional programming should lead to less code which in turn usually leads to less bugs and better understandability. K. van den Berg Phd. thesis concludes that 'The results of the experiments show that the programs in a functional lan- guage took significantly less time to develop and were considerably more con- cise and easier to understand than the corresponding programs written in an imperative language' \cite{DBLP:journals/infsof/BergB95}. \par
 
-Writing Scala code does not imply you are writing functional code;  there is no mechanism in the language that enforces a functional style of programming; so one can say he writes code in Scala so he uses FP when in fact his code base is entirely procedural. I was also put in such a position,  being one of the many  developers that  switched from an OO language(Java /C\#/C++xs etc.)  to a functional language such as Scala. So how can one figure out if his Scala code follows the FP principles or not? The classic approach is to ask a functional programming expert for code review, if you are lucky enough to have access to such valuable resources. Wouldn't it be nicer (and cheaper) to have a free tool that does the code review job for you? \par
+Writing Scala code does not imply you are writing functional code;  there is no mechanism in the language that enforces a functional style of programming; so one can say he writes code in Scala so he uses FP when in fact his code base is entirely procedural. I was also put in such a position,  being one of the many  developers that  switched from an Object Oriented language(Java /C\#/C++xs etc.)  to a functional language such as Scala. So how can one figure out if his Scala code follows the FP principles or not? The classic approach is to ask a functional programming expert for code review, if you are lucky enough to have access to such valuable resources. Wouldn't it be nicer (and cheaper) to have a free tool that does the code review job for you? \par
 
 The solution we propose is an automatic tool checker that would be able to asses one's code `functional-ness'; it should be able to guide the Scala programmer through the coding process and help him understand what features of FP he is using or missing on. We can imagine having a DSL for choosing which are the targeted FP properties for the analysis and receiving an detailed report on the analysis with further guidelines. \par
 
-But what means qualifies a code as being functional? What are the specifics of a functional code? These are some of the questions that we have to answer first, in order to come up with metrics for code functional-ness.
+But what  qualifies a code as being functional? What are the specifics of a functional code? These are some of the questions that we have to answer first, in order to come up with metrics for code functional-ness.\par
 
-   It is in this context that we start our study on functional programming and the pursue of searching and understanding its features. 
 
 \section {Methodology}
 First of all we need to establish the characteristics of FP languages, taking Scala as an example. Only then we can elaborate further on the metrics and decide which ones are to be considered for the study. \par
@@ -208,7 +207,7 @@ def unit[T](x:T): M[T]
 Lazy evaluation or call-by-need is the opposite of eager evaluation(call-by-value) and it is an evaluation strategy which delays the evaluation of an expression until it is needed and only then computes the result and caches it for further evaluations. \par
 One advantage is the memory saving due to postponing the evaluation but it comes with a performance cost: you get faster intialization but later (when evaluation occurs) you suffer a performance penality.\par
 
-Scala supports lazyness by introducing the lazy keyword and call by name parameters. By default it supports strict evaluation in contrast with Haskell which is lazy by default.
+Scala supports laziness by introducing the lazy keyword and call by name parameters. By default it supports strict evaluation in contrast with Haskell which is lazy by default.
 
 \begin{lstlisting}
 lazy val product = 100 * 30 // not evaluated
