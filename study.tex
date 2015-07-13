@@ -236,9 +236,13 @@ object Test {
 
 \end{lstlisting}
 
-
-
 \section {State of the art - Literature study}
+
+\subsection{Metrics for Modularization Assessment of Scala and C\# Systems}
+Besavaraju Muudu et. al. \cite{DBLP:conf/icse/MudduABP13} propose a series of metrics for Scala that target modularity with respect to Functional Programming features like : referential transparency, functional purity, first order functions and also Object Oriented features such as inheritance. They give the following definition for a module: ' A module is a logical collection of related files which can be modified and tested independently. A well modularized system will have low inter-module coupling and high intra-module cohesion. It helps the designers to add new modules easily.'\cite{DBLP:conf/icse/MudduABP13}. As one can see, this definition does not imply an exact rule for discovering  modules, so the system can contain a variable number of modules, depending how one delimits a module. The technique they chose to use for delimiting system modules  was Modularizing by  Inverse-Depth heuristic, which is based of the project's file directory structure; they start at the source root folder and compute for each branch the maximum depth; then starting from the bottom up, they assign a module up to a certain depth; in their study, they use inverse depth of 1 for selecting modules, arguing that these are the closest approximation to actual logical modules. \par
+Before presenting their metrics, we need to first establish the notations we are going to use: \par
+
+\subsection{Old description}
 
 Current research on functional programming static analysis include Klass van den Berg \cite{DBLP:journals/infsof/BergB95} which studies the use cases of control-flow graphs in Miranda, a pure functional language, same as Haskell; the main focus is on program coprehensibility and they conclude that structured function definitions appear to be easier to understand by novice programmers. \par
 
