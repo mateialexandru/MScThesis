@@ -238,9 +238,17 @@ object Test {
 \end{lstlisting}
 
 \section {State of the art - Literature study}
-In the first section we talked about elaborating a series of metrics, in order to asses one's code functional-ness but we didn't had the opportunity to provide a proper definition for the concept of a metric and it's status quo in software industry. 
+In the first section we talked about elaborating a series of metrics, in order to asses one's code functional-ness but we didn't had the opportunity to provide a proper definition for the concept of a metric and it's status quo in software industry. So metrics offer a quantitative measure of a software property. 
+
 \subsection{Metrics}
-\textit{"When you can measure what you are speaking about and express it in numbers, you know something about it; but when you cannot measure it, when you cannot express it in numbers, your knowledge is of a meagre and unsatisfactory kind: it may be the beginnings of knowledge but you have scarcely in your thoughts advanced to the stage of Science."} (Lord Kelvin)
+
+\textit{"When you can measure what you are speaking about and express it in numbers, you know something about it; but when you cannot measure it, when you cannot express it in numbers, your knowledge is of a meagre and unsatisfactory kind: it may be the beginnings of knowledge but you have scarcely in your thoughts advanced to the stage of Science." (Lord Kelvin)}\par \par
+
+A metric is a measurement function, and a software quality metric is "a function whose inputs are software data and whose output is a single numerical value that can be interpreted as the degree to which software possesses a given attribute that affects its quality \cite{Kaner04softwareengineering}. Software metrics are used in Software Engineering for reasoning, helping with software development activities such as testing and refactoring, performance optimization, debugging, cost estimation, etc. Some common software metrics include : source line of code (LOC), number of functions, cyclomatic complexity, code coverage, cohesion, coupling. The most difficult part is not finding the code metrics but establishing a correlation between code metrics and process developing metrics. \par
+
+Study of software metrics has been an active area of research since early 70' targeting mostly object oriented and imperative languages; as for functional languages, the number of published papers is relatively small, : some of the prior work was started by K. van den Berg \cite{DBLP:journals/infsof/BergB95} who proposed a set of metrics for evaluating code complexity of Miranda functional programming language, Harisson   Muddu et. .al proposed metrics for evaluating code modularity by analyzing some of the features of functional programming languages in Scala \cite{DBLP:conf/icse/MudduABP13}. 
+
+
 
 \subsection{Metrics for Modularization Assessment of Scala and C\# Systems }
 
