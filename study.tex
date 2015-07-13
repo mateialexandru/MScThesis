@@ -237,23 +237,28 @@ object Test {
 
 Current research on functional programming static analysis include Klass van den Berg \cite{DBLP:journals/infsof/BergB95} which studies the use cases of control-flow graphs in Miranda, a pure functional language, same as Haskell; the main focus is on program coprehensibility and they conclude that structured function definitions appear to be easier to understand by novice programmers. \par
 
+Chris Ryder an Simon Thompson propose a series of metrics for Haskell functional programming language in order to reason about functions that may have an increased risk for errors and might need more rigurous testing \cite{RyderT05:TFP_2005_Intellect}. \par
 
-Previous work in statical analysis of functional languages through control-flow analysis is well described by Jan MidtGaard \cite{Midtgaard:2012:CAF:2187671.2187672}. 
+Regarding Scala programming language, Basavaraju Muddu studies metrics for assessing Scala modularity; the study focuses on referential tranparency, functional purity and high order functions, some of the aspects that we will also use in our metrics to determine code functional-ness \cite{DBLP:conf/icse/MudduABP13}. To some extent, modularization metrics are a subset of the functional-ness metrics. \par
 
-In the industry there are just a couple of static analysis tools written for Scala : 'ScalaStyle' that is a scala style checker  (implemented rules can be found at http://www.scalastyle.org/rules-0.7.0.html) and ScapeGoat plugin (https://github.com/sksamuel/scalac-scapegoat-plugin) but neither of them investigate functional features. \par
+As for the industry there are already a couple of static analysis tools written for Scala : 
+\begin{itemize}
+\item 'ScalaStyle' that is a scala style checker  (implemented rules can be found at http://www.scalastyle.org/rules-0.7.0.html)
+\item  ScapeGoat plugin (https://github.com/sksamuel/scalac-scapegoat-plugin) - signals suspicious language usage in code
+\item  Wart remover https://github.com/puffnfresh/wartremover - linting tool
+\item  HairyFotr/linger https://github.com/HairyFotr/linter
+\item  Scala Abide https://github.com/scala/scala-abide - linting tool
+\end{itemize}
+
+Most of the previous research on functional programming metrics has been targeting program complexity, readability and maintability. Besavaraju Muddo takes the study a step further and developes metrics for studying modularization of FP programs. Static analyzers developed for Scala are mainly linting tools, to support detection of code smells and possible errors. \par
 
 
-\section{Research questions}
+\section{Further Research}
 
-We have to first decide upon the patterns that are most relevant and study about the compiler support for performing such analysis (Scala compiler plug-ins). Next section presents some of the targeted FP features that we will try to measure in order to compute a metrice. \par
+
 
 Scala provides an API to extend its compiler through Scala compiler plugins; how they work is that they insert custom functionality at different stages of the compilation; of course this could lead to errors, if used improperly. Unfortunately, there are only a limited amount of resources online (http://lampwww.epfl.ch/~magarcia/ScalaCompilerCornerReloaded/) that talk about how to create plugins. \par
-
-
-There is already a scala build tool plugin named 
-
-The only paper published on FP analysis was  'Static analysis of functional programms'  ; still, we could not find a paper that handles code 'functional-ness' the way we presented above.\par
-
+We have to first decide upon the patterns that are most relevant and study about the compiler support for performing such analysis (Scala compiler plug-ins). 
 
 
 
