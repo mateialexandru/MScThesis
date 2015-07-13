@@ -1,5 +1,6 @@
 \documentclass{article}
 
+\usepackage{mathtools}
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{color}
@@ -239,8 +240,18 @@ object Test {
 \section {State of the art - Literature study}
 
 \subsection{Metrics for Modularization Assessment of Scala and C\# Systems}
-Besavaraju Muudu et. al. \cite{DBLP:conf/icse/MudduABP13} propose a series of metrics for Scala that target modularity with respect to Functional Programming features like : referential transparency, functional purity, first order functions and also Object Oriented features such as inheritance. They give the following definition for a module: ' A module is a logical collection of related files which can be modified and tested independently. A well modularized system will have low inter-module coupling and high intra-module cohesion. It helps the designers to add new modules easily.'\cite{DBLP:conf/icse/MudduABP13}. As one can see, this definition does not imply an exact rule for discovering  modules, so the system can contain a variable number of modules, depending how one delimits a module. The technique they chose to use for delimiting system modules  was Modularizing by  Inverse-Depth heuristic, which is based of the project's file directory structure; they start at the source root folder and compute for each branch the maximum depth; then starting from the bottom up, they assign a module up to a certain depth; in their study, they use inverse depth of 1 for selecting modules, arguing that these are the closest approximation to actual logical modules. \par
+Besavaraju Muudu et. al. \cite{DBLP:conf/icse/MudduABP13} propose a series of metrics for Scala that target modularity with respect to Functional Programming features like : referential transparency, functional purity, first order functions and also Object Oriented features such as inheritance. They give the following definition for a module: ' A module is a logical collection of related files which can be modified and tested independently. A well modularized system will have low inter-module coupling and high intra-module cohesion. It helps the designers to add new modules easily.'\cite{DBLP:conf/icse/MudduABP13}. As one can see, this definition does not imply an exact rule for discovering  modules, so the system can contain a variable number of modules, depending how one delimits a module. The technique they chose to use for delimiting system modules  was Modularizing by  Inverse-Depth heuristic, which is based of the project's file directory structure; they start at the source root folder and compute for each branch the maximum depth; then starting from the bottom up, they assign a module up to a certain depth; in their study, they use inverse depth of 1 for selecting modules, arguing that these are the closest approximation to actual logical modules. We would like to try other modularization techniques: package based, SBT (Scala Build Tool)  modularization and relate them to our problem: establishing code functional-ness; would a good result value for our metric lead to great modularity?.\par
+
+
+
 Before presenting their metrics, we need to first establish the notations we are going to use: \par
+
+
+
+\subsection {Static analysis tools for Scala}
+There are already a couple of static analysis tools written for Scala : ScalaStyle, ScapeGoat, Wart remover, Linger and Scala Abide. These tools are looking possible errors that might appear in Scala code and also checks for a certain style of coding. Some of the checks they perform are: identation, illegal imports, multiple declared strings, null appearances, redundant if statements, cyclomatic complexity, unreachable catch statements, unexpected recursive definitions, unassigned variables, shadowing etc. \par
+
+Some metrics that could turn out to be useful for our study are  the presence, absence of vars and cyclomatic complexity; ScalaStyle checks that classes and objects do not define mutable fields and that functions do not define mutable variables (VarFieldChecker, VarLocalChecker) \cite{scalastyle} and it also has a metric for cyclomatic complexity. At least from an implementation perspective it would be worthwhile to take them into account.\par
 
 \subsection{Old description}
 
@@ -249,18 +260,6 @@ Current research on functional programming static analysis include Klass van den
 Chris Ryder an Simon Thompson propose a series of metrics for Haskell functional programming language in order to reason about functions that may have an increased risk for errors and might need more rigurous testing \cite{RyderT05:TFP_2005_Intellect}. \par
 
 Regarding Scala programming language, Basavaraju Muddu studies metrics for assessing Scala modularity; the study focuses on referential tranparency, functional purity and high order functions, some of the aspects that we will also use in our metrics to determine code functional-ness \cite{DBLP:conf/icse/MudduABP13}. To some extent, modularization metrics are a subset of the functional-ness metrics. \par
-
-As for the industry there are already a couple of static analysis tools written for Scala : 
-\begin{itemize}
-\item 'ScalaStyle' that is a scala style checker  (implemented rules can be found at http://www.scalastyle.org/rules-0.7.0.html)
-\item  ScapeGoat plugin (https://github.com/sksamuel/scalac-scapegoat-plugin) - signals suspicious language usage in code
-\item  Wart remover https://github.com/puffnfresh/wartremover - linting tool
-\item  HairyFotr/linger https://github.com/HairyFotr/linter
-\item  Scala Abide https://github.com/scala/scala-abide - linting tool
-\end{itemize}
-
-Most of the previous research on functional programming metrics has been targeting program complexity, readability and maintability. Besavaraju Muddo takes the study a step further and developes metrics for studying modularization of FP programs. Static analyzers developed for Scala are mainly linting tools, to support detection of code smells and possible errors. \par
-
 
 \section{Proposed solution}
 
