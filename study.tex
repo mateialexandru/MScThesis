@@ -156,8 +156,16 @@ Examples of pure functions in Scala include:
  \item Methods like split, length on the String class
  \item Mathematical functions such as add, multiply \ldots
 \end{itemize}
-As a rule of thumb in Scala if a function has its return type Unit, then most probably it has side effects. 
+As a rule of thumb in Scala if a function has its return type Unit, then most probably it has side effects. \par
 
+A simple description for referential transparency would be expressed as:  \par
+\begin{center}
+\begin{math}
+  RTI = \frac{ | \{ m \in M / Pure(m) \} | } { | M | }
+\end{math}
+\end{center}
+
+Where  M - set of all functions/methods of the software and  Pure(m) - predicate that says if a function is pure or not. In this case, a value close to 1 corresponds to improved referential transparency while one close to 0 says that the property is not satisfied at all. \cite{DBLP:conf/icse/MudduABP13} \par
 
 \subsection {High-order functions}
 One of the features pointed out by John Hughes \cite{DBLP:journals/cj/Hughes89} in 'Why Functional Programming Matters' are higher- order functions and lazy evaluation; Hughes argues that these two concepts greatly increase the modularity of software by providing novative ways (compared to other structured programming techniques) of 'gluing' modules together so programs can become more concise and easier to reason about. One other design pattern that was first approached in Haskel and targets modularity by emphasizing on composition is represented by monads which model the concept of a category (see \ref{monads}). \par 
@@ -172,7 +180,6 @@ Before we begin talking about high-order functions we should first understand wh
 
 So order 0 is represented by numbers, lists, characters, etc. Order 1 are functions wich work with order 0 data. So order 1 data are the well known functions that every programming language supports. 
 Functions with an order grater than 1 are callled higher-order functions and they fall at least in on of the following categories:
-
 \begin{itemize}
 \item they take other functions as parameters
 \item they return a function as a result
@@ -196,6 +203,7 @@ another type
 \end{itemize}
 [http://people.cs.aau.dk/~normark/prog3-03/pdf/higher-order-fu.pdf]
 
+A study about high-order functions metrics and their corelation with software modularity was also conducted by B. Muddu et. al. \cite{DBLP:conf/icse/MudduABP13}. The proposed metric was studying the coupling between high order functions in diferent modules. It might be useful to make use also of their modularity metric when assesing code functional-ness.\par 
 
 \subsection {Monads}  \label{monads}
 In Category Theory, a Monad is a functor equipped with a pair of natural transformations satisfying the laws of associativity and identity. In Scala, monads are just a parametric type M[T] with two operations, flatMap (or bind) and unit which also preserves associativity and identity. \par
@@ -244,61 +252,37 @@ In the first section we talked about elaborating a series of metrics, in order t
 
 \textit{"When you can measure what you are speaking about and express it in numbers, you know something about it; but when you cannot measure it, when you cannot express it in numbers, your knowledge is of a meagre and unsatisfactory kind: it may be the beginnings of knowledge but you have scarcely in your thoughts advanced to the stage of Science." (Lord Kelvin)}\par \par
 
-A metric is a measurement function, and a software quality metric is "a function whose inputs are software data and whose output is a single numerical value that can be interpreted as the degree to which software possesses a given attribute that affects its quality \cite{Kaner04softwareengineering}. Software metrics are used in Software Engineering for reasoning, helping with software development activities such as testing and refactoring, performance optimization, debugging, cost estimation, etc. Some common software metrics include : source line of code (LOC), number of functions, cyclomatic complexity, code coverage, cohesion, coupling. The most difficult part is not finding the code metrics but establishing a correlation between code metrics and process developing metrics. \par
+A metric is a measurement function, and a software quality metric is "a function whose inputs are software data and whose output is a single numerical value that can be interpreted as the degree to which software possesses a given attribute that affects its quality \cite{Kaner04softwareengineering}. To some extent, metrics could be regarded as compiler warnings, signaling that a part of your code needs more testing. Software metrics are used in Software Engineering for helping with software development activities such as testing and refactoring, performance optimization, debugging, cost estimation, etc. Some common software metrics include : source line of code (LOC), number of functions, cyclomatic complexity, code coverage, cohesion, coupling. The most difficult part is not finding the code metrics but establishing a correlation between code metrics and process developing metrics. \par
 
-Study of software metrics has been an active area of research since early 70' targeting mostly object oriented and imperative languages; as for functional languages, the number of published papers is relatively small, : some of the prior work was started by K. van den Berg \cite{DBLP:journals/infsof/BergB95} who proposed a set of metrics for evaluating code complexity of Miranda functional programming language, Harisson   Muddu et. .al proposed metrics for evaluating code modularity by analyzing some of the features of functional programming languages in Scala \cite{DBLP:conf/icse/MudduABP13}. 
+Study of software metrics has been an active area of research since early 70' targeting mostly object oriented and imperative languages \cite{RyderT05:TFP_2005_Intellect}; as for functional languages, the number of published papers is not the numoerous; some of the prior work on metrics for functional languages was started almost 20 years ago by K. van den Berg in 1995 \cite{DBLP:journals/infsof/BergB95} who proposed a set of metrics for evaluating code complexity of Miranda functional programming language and Harrison which studied code modularity for SML \cite{eps250597}; 10 years later, Ryder and Thompson proposed some metrics for Haskell \cite{RyderT05:TFP_2005_Intellect} whereas  Muddu et. al. developed metrics for Scala \cite{DBLP:conf/icse/MudduABP13}. We can corelate the few number of papers on FP with the fact that FP does have yet such large adoption in software industry compared to object oriented and imperative languages. \par
 
+Most commonly used metrics for functional languages in the papers we mentioned about are:
 
+\begin{itemize}
+\item Pattern related metrics - applies mostly to Haskell
+\item Scoping metrics -how many scopes does a function introduce, the number of declatations brought in scope
+\item Call graph metrics - strong connections, in degree, out degree, depth, width, arc-to-node ratio
+\item Function atributes - path count, number of operands vs operators
+\end{itemize}
 
-\subsection{Metrics for Modularization Assessment of Scala and C\# Systems }
+The biggest problem with code metrics is not the definition of new ones but the extraction of  meaningful information from them;code metrics without semantics attached to them are just plain numbers; we need to corelate them to some process development metrics and this is the hardest part, since process activities are difficult to cuantify; most of the research in FP metrics is targeting maintanability, code quality and refactorings.  \par
 
-Basavaraju Muddu et. al. \cite{DBLP:conf/icse/MudduABP13} propose a series of metrics for Scala that target modularity with respect to Functional Programming features like : referential transparency, functional purity, first order functions and also Object Oriented features such as inheritance. They give the following definition for a module: ' A module is a logical collection of related files which can be modified and tested independently. A well modularized system will have low inter-module coupling and high intra-module cohesion. It helps the designers to add new modules easily.'\cite{DBLP:conf/icse/MudduABP13}. As one can see, this definition does not imply an exact rule for discovering  modules, so the system can contain a variable number of modules, depending how one delimits a module. \par
-
-The technique they chose to use for delimiting system modules  was Modularizing by  Inverse-Depth heuristic, which is based of the project's file directory structure; they start at the source root folder and compute for each branch the maximum depth; then starting from the bottom up, they assign a module up to a certain depth; in their study, they use inverse depth of 1 for selecting modules, arguing that these are the closest approximation to actual logical modules. We would like to try other modularization techniques: package based, SBT (Scala Build Tool)  modularization and relate them to our problem: establishing code functional-ness: would a good 'functional-ness' value for our proposed metric lead also to improved modularity?.\par
-
-The metrics for referential transparency - function purity can be easily taken out of the modularity context and be expressed in a general manner, at the level of the whole software system; then a simple description for referential transparency would be expressed as:  \par
-\begin{center}
-\begin{math}
-  RTI = \frac{ | \{ m \in M / Pure(m) \} | } { | M | }
-\end{math}
-\end{center}
-
-Where  M - set of all functions/methods of the software and  Pure(m) - predicate that says if a function is pure or not. In this case, a value close to 1 corresponds to improved referential transparency while one close to 0 says that the property is not satisfied at all. \par
-
-
-\subsection{Software Measurement for Functional Programming } 
-\cite{Ryder04softwaremeasurement}
-
-\subsection{Static analysis of functional programs}
-\cite{DBLP:journals/infsof/BergB95}
-
-\subsection{}
-
-[FROM Muddu ] The system that we designed for Scala relies on the scalac compiler for source code parsing. We developed a plugin to the scalac compiler to visit the AST (Abstract Syntax Tree) created by the compiler. This extracts code metadata like classes, methods, parent-child relationships, method calls, etc., and stores it in a database (MySQL)
-
-The other metrics presented by Muddu et. al. could be of further use if we decide to consider in our analysis also the software modularity ratio and try to establish correlation. As for the rest of the functional properties described in the previous section, we need to figure ourselves some proper metrics for them.
-
-
-
-
-
+In oder to study the maintability, Basavaraju Muddu et. al. introduce a technique for breaking software into logical modules \cite{DBLP:conf/icse/MudduABP13} The technique they chose was Modularizing by  Inverse-Depth heuristic, which is based of the project's file directory structure; they start at the source root folder and compute for each branch the maximum depth; then starting from the bottom up, they assign a module up to a certain depth; in their study, they use inverse depth of 1 for selecting modules, arguing that these are the closest approximation to actual logical modules. We would like to try other modularization techniques: package based, SBT (Scala Build Tool)  modularization and relate them to our problem: establishing code functional-ness: would a good 'functional-ness' value for our proposed metric lead also to improved modularity?.\par
 
 \subsection {Static analysis tools for Scala}
 There are already a couple of static analysis tools written for Scala : ScalaStyle, ScapeGoat, Wart remover, Linger and Scala Abide. These tools are looking possible errors that might appear in Scala code and also checks for a certain style of coding. Some of the checks they perform are: identation, illegal imports, multiple declared strings, null appearances, redundant if statements, cyclomatic complexity, unreachable catch statements, unexpected recursive definitions, unassigned variables, shadowing etc. \par
 
 Some metrics that could turn out to be useful for our study are  the presence, absence of vars and cyclomatic complexity; ScalaStyle checks that classes and objects do not define mutable fields and that functions do not define mutable variables (VarFieldChecker, VarLocalChecker) \cite{scalastyle} and it also has a metric for cyclomatic complexity. At least from an implementation perspective it would be worthwhile to take them into account.\par
 
-\subsection{Old description}
-
-Current research on functional programming static analysis include Klass van den Berg \cite{DBLP:journals/infsof/BergB95} which studies the use cases of control-flow graphs in Miranda, a pure functional language, same as Haskell; the main focus is on program coprehensibility and they conclude that structured function definitions appear to be easier to understand by novice programmers. \par
-
-Chris Ryder an Simon Thompson propose a series of metrics for Haskell functional programming language in order to reason about functions that may have an increased risk for errors and might need more rigurous testing \cite{RyderT05:TFP_2005_Intellect}. \par
-
-Regarding Scala programming language, Basavaraju Muddu studies metrics for assessing Scala modularity; the study focuses on referential tranparency, functional purity and high order functions, some of the aspects that we will also use in our metrics to determine code functional-ness \cite{DBLP:conf/icse/MudduABP13}. To some extent, modularization metrics are a subset of the functional-ness metrics. \par
-
 \section{Proposed solution}
 
-Scala provides an API to extend its compiler through Scala compiler plugins; how they work is that they insert custom functionality at different stages of the compilation; of course this could lead to errors, if used improperly. Unfortunately, there are only a limited amount of resources online (http://lampwww.epfl.ch/~magarcia/ScalaCompilerCornerReloaded/) that talk about how to create plugins. \par
+We would like to try other modularization techniques: package based, SBT (Scala Build Tool)  modularization and relate them to our problem: establishing code functional-ness: would a good 'functional-ness' value for our proposed metric lead also to improved modularity?. [Basavaraju Muddu]\par
+
+[FROM Muddu ] The system that we designed for Scala relies on the scalac compiler for source code parsing. We developed a plugin to the scalac compiler to visit the AST (Abstract Syntax Tree) created by the compiler. This extracts code metadata like classes, methods, parent-child relationships, method calls, etc., and stores it in a database (MySQL)
+
+The other metrics presented by Muddu et. al. could be of further use if we decide to consider in our analysis also the software modularity ratio and try to establish correlation. As for the rest of the functional properties described in the previous section, we need to figure ourselves some proper metrics for them.
+
+Scala provides an API to extend its compiler through Scala compiler plugins; how they work is that they insert custom functionality at different stages of the compilation; of course this could lead to errors, if used improperly. Unfortunately, there are only a limited amount of resources online (http://lampwww.epfl.ch/~magarcia/ScalaCompilerCornerReloaded/) that talk about how to create plugins. Muddu et. al. also used the scalac compiler to implement modularity metrics in Scala, gaining access to the AST representation of the source code \cite{DBLP:conf/icse/MudduABP13}.\par
 We have to first decide upon the patterns that are most relevant and study about the compiler support for performing such analysis (Scala compiler plug-ins). 
 
 \section{Conclusion}
