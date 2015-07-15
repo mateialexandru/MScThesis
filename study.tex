@@ -46,7 +46,7 @@
   tabsize=3
 }
 
-\title{Dissertation proposal - Metrics for code 'functional-ness' in Scala }
+\title{Metrics for code 'functional-ness' in Scala\\Dissertation proposal  }
 \date{\today}
 
 \begin{document}
@@ -72,7 +72,7 @@ Dissertation Domain: Software engineering - Functional Programming
 
 \pagenumbering{arabic}
 \section{Introduction}
-Functional programming started to get more traction in the last years, thanks to the growing adoption of Scala and Haskell in the software industry; we can see that Google trends shows a rising interest in functional programming languages (see figure \ref{fig:google-rank}). \par
+Functional programming has started to gain more traction in the last years, thanks to the growing adoption of Scala and Haskell in the software industry; we can see that Google trends shows a rising interest in functional programming languages (see figure \ref{fig:google-rank}). \par
 
 \begin{figure}[h!]
   \includegraphics[width=\linewidth]{google-trends.png}
@@ -80,7 +80,7 @@ Functional programming started to get more traction in the last years, thanks to
   \label{fig:google-rank}
 \end{figure}
 
-Scala is one of the leading functional programming languages, over the last couple of years being adopted by large companies such as  Twitter(2009), Linkedin(2010), The Guardian, Foursquare. If we look at 'RedMonk Programming Languages Rankings'\cite{redmonk:1}, which is based on StackOverflow and Github analysis,  Scala occupies a worthy 14th position, being the first FP language in top . \par
+Scala is one of the leading functional programming languages, over the last couple of years being adopted by large companies such as  Twitter(2009), Linkedin(2010), The Guardian, Foursquare. If we look at 'RedMonk Programming Languages Rankings'\cite{redmonk:1}, which is based on StackOverflow and Github analysis,  Scala occupies a worthy 14th position, being the first FP language in the top . \par
 
 \begin{figure}[h!]
   \includegraphics[width=\linewidth]{redmonk-rank.png}
@@ -88,7 +88,9 @@ Scala is one of the leading functional programming languages, over the last coup
   \label{fig:redmonk-rank}
 \end{figure}
 
-One of its success factors is  Scala's compatibility with Java Virtual Machine hence code interoperability with Java, and the benefits that come along from  Java's well-established ecosystem. Another one might be that MOOCs  like Functional Programming in Scala \cite{scalastat:1} held  by the creator of Scala, Martin Odersky and Reactive Programming are one of the most popular online courses; the feedback from developers is really encouraging(see figure \ref{fig:interest}). \par
+One of its success factors is  Scala's compatibility with Java Virtual Machine hence code interoperability with Java, and the benefits that come along from  Java's well-established ecosystem.\par
+
+ Another one might be that Massive Open Online Courses (MOOCs)  like Functional Programming in Scala \cite{scalastat:1} held  by the creator of Scala, Martin Odersky and Reactive Programming are one of the most popular online courses; the feedback from developers is really encouraging(see figure \ref{fig:interest}). \par
 
 \begin{figure}[h!]
   \includegraphics[width=\linewidth]{interest.png}
@@ -96,20 +98,23 @@ One of its success factors is  Scala's compatibility with Java Virtual Machine h
   \label{fig:interest}
 \end{figure}
 
-Another reason why FP comes in handy nowadays is that multiprocessor architectures become ubiquitous and developers need to get more familiar with distributed and multi-threaded computing; programming with shared state has proven to be pretty difficult to reason about and functional programming offers to save a lot of headaches by removing shared state from the equation and providing better concurrency abstractions (Futures, Actors) and we should also consider  the exceptional distribution capabilities of map-reduce that FP offers. Although the programming paradigm was born more than 80 years ago, FP seems like a totally new way of thinking about software to modern day developers, having lots of secret gems left to be discovered. \par
+Another reason why functional programming comes in handy nowadays is that multiprocessor architectures become ubiquitous and developers need to get more familiar with distributed and multi-threaded computing. Programming with shared state has proven to be  difficult to reason about and functional programming offers to save a lot of headaches by removing shared state from the equation and providing better concurrency abstractions (Futures, Actors). We should also consider  the exceptional distribution capabilities of map-reduce that functional programming offers. Although the programming paradigm was born more than 80 years ago, functional programming seems like a totally new way of thinking about software to modern day developers, having lots of secret gems left to be discovered. \par
 
 \section {Problem statement}
-Scala is a hybrid programming lanaguage being both a functional language and an object oriented one \cite{scalalang:1}.Writing Scala code does not imply you are writing functional code;  there is no mechanism in the language that enforces a functional style of programming; so one can say he writes code in Scala so he uses FP when in fact his code base is entirely procedural. I was also put in such a position,  being one of the many  developers that  switched from an Object Oriented language(Java /C\#/C++xs etc.)  to a functional language such as Scala. So how can one figure out if his Scala code follows the FP principles or not? The classic approach is to ask a functional programming expert for code review, if you are lucky enough to have access to such valuable resources. \par
+Scala is a hybrid programming lanaguage combining both  functional and  object oriented elements \cite{scalalang:1}. Writing Scala code does not imply you are writing functional code;  there is no mechanism in the language that enforces a functional style of programming; so one can say they write code in Scala so they use functional programming when in fact their code base is entirely procedural. I was also put in such a position,  being one of the many  developers that switched from an Object Oriented language(Java /C\#/C++xs etc.)  to Scala. So how can one figure out if his Scala code follows the functional programming principles or not? The classic approach is to ask a functional programming expert for code review, if you are lucky enough to have access to such valuable resources. \par
 
-The solution we propose is a set of metrics that should be able to quantify to what degree the code is making use of the functional paradigm. But what  qualifies a code as being functional? What are the specifics of a functional code? These are some of the questions that we have to answer first, in order to come up with metrics for code functional-ness.\par
+The solution we propose is a set of metrics that should be able to quantify to what degree the code is making use of the functional paradigm. But what  qualifies a code as being functional? What are the characteristics of functional code? In the following section we will elaborate the main characteristics of functional programming languages.\par
 
 \section {Theoretical Foundations}
-First of all we need to establish the characteristics of FP languages, taking Scala as an example. Only then we can elaborate further on the metrics and decide which ones are to be considered for the study. \par
+First of all we need to establish the main elements of functional languages and we will do so by taking Scala as an example. Only then we can elaborate further on the metrics and decide which ones are to be considered for the study. \par
 
-We get to ask ourselves the following questions: `how much does a method uses functional programming concepts?` Does it contain only immutable data, so no shared state? Does it use higher order functions for data processing? Does a method use advanced features such as monadic comprehension? Does a method use functional-like constructs such as anonymous inner classes? \par
+
+The question we will try to answer in this body of work is 'how much does a method use functional programming concepts?' The main elements we will look at are: immutability, referential trasparency, high-order functions, monads, laziness.
+
+%We get to ask ourselves the following questions: `how much does a method uses functional programming concepts?` Does it contain only immutable data, so no shared state? Does it use higher order functions for data processing? Does a method use advanced features such as monadic comprehension? Does a method use functional-like constructs such as anonymous inner classes? \par
 
 \subsection {Immutability}
-If a variable/object is immutable then it's value never changes. That is a really usefull guarantee if one plans on going concurrent: any such value can be safely shared amongst treads since the value is read-only. Another advantage is the reduced aliasing between different parts of the program; one can say that immutable objects are easier to reason about and also their API is straight forward because you don't need to reason about internal state changes - everything is transparent compared to mutable objects that introduce opaqueness in reasoning about their possible states at different moments of time . \par
+If a variable/object is immutable then its value never changes. That is a useful guarantee if one plans on going concurrent: any such value can be safely shared amongst treads since the value is read-only. Another advantage is the reduced aliasing between different parts of the program; one can say that immutable objects are easier to reason about and also their API is straight forward because you don't need to reason about internal state changes - everything is transparent compared to mutable objects that introduce opaqueness in reasoning about their possible states at different moments of time . \par
 Scala encourages immutability through case classes, which provide a syntatic sugar for creating immutable objects (data structures). Case classes are regular classes which export their constructor parameters and which provide a recursive decomposition mechanism via pattern matching.
 
 \begin{lstlisting} 
@@ -136,7 +141,7 @@ x = 5 //Reasignment to val generates error
 \end{lstlisting}
 
 
-So, in order to create an immutable Scala object, it is necessary to have all the fields declared as vals + all the values to be immutable objects in turn. Case classes make it more easier to accomplish that in as few lines of code as possible.
+So, in order to create an immutable Scala object, it is necessary to have all the fields declared as vals + all the values to be immutable objects in turn. Case classes make it easier to accomplish that in as few lines of code as possible.
 
 \subsection {Referential tranparency, pure functions}
 An expression is referentially transparent (RT) if it can be replaced by its resulting value without changing the behavior of the program. This must be true regardless of where the expression is used in the program. Programming without side effects leads to referential transparency. An example:
@@ -148,7 +153,7 @@ val z = f(3)
 \\ replace it with f(3) without changing the result of the program
 \end{lstlisting}
 
-Pure functions evaluates to the same result given the same argument value(s) and they don't have any side effects. A better definition can be found in 'Functional Programming in Scala' by Chiusano and Bjarnason : 'A function f is pure if expression f(x) is referentially transparent for all referentially trasparent values x'.\par
+Pure functions evaluate to the same result given the same argument value(s) and  don't have any side effects. A definition combining both concepts can be found in 'Functional Programming in Scala' by Chiusano and Bjarnason : 'A function f is pure if expression f(x) is referentially transparent for all referentially transparent values x'.\par
 Examples of pure functions in Scala include:
 \begin{itemize}
 
@@ -156,19 +161,20 @@ Examples of pure functions in Scala include:
  \item Methods like split, length on the String class
  \item Mathematical functions such as add, multiply \ldots
 \end{itemize}
-As a rule of thumb in Scala if a function has its return type Unit, then most probably it has side effects. \par
+As a rule of thumb in Scala if a function has return type Unit, then most probably it has side effects and it is not pure. \par
 
-A simple description for referential transparency would be expressed as:  \par
+A measure for the degree of referential transparency in a program can be expressed as:  \par
 \begin{center}
 \begin{math}
   RTI = \frac{ | \{ m \in M / Pure(m) \} | } { | M | }
 \end{math}
 \end{center}
 
-Where  M - set of all functions/methods of the software and  Pure(m) - predicate that says if a function is pure or not. In this case, a value close to 1 corresponds to improved referential transparency while one close to 0 says that the property is not satisfied at all. \cite{DBLP:conf/icse/MudduABP13} \par
+Where RTI- Referential Transparency Index ,  M - set of all functions/methods of the software and  Pure(m) - predicate that says if a function is pure or not. In this case, a value close to 1 corresponds to improved referential transparency while one close to 0 says that the property is not satisfied at all. \cite{DBLP:conf/icse/MudduABP13}. Further study is needed on elaborating how the pure function should be defined. \par
 
 \subsection {High-order functions}
-One of the features pointed out by John Hughes \cite{DBLP:journals/cj/Hughes89} in 'Why Functional Programming Matters' are higher- order functions and lazy evaluation; Hughes argues that these two concepts greatly increase the modularity of software by providing novative ways (compared to other structured programming techniques) of 'gluing' modules together so programs can become more concise and easier to reason about. One other design pattern that was first approached in Haskel and targets modularity by emphasizing on composition is represented by monads which model the concept of a category (see \ref{monads}). \par 
+The central concept of functional languages as pointed out by John Hughes \cite{DBLP:journals/cj/Hughes89} in 'Why Functional Programming Matters' is higher- order functions ; Hughes argues that when high order functions are combined with laziness techniques they greatly increase the modularity of software by providing novative ways (compared to other structured programming techniques) of 'gluing' modules together so programs can become more concise and easier to reason about. 
+
 Before we begin talking about high-order functions we should first understand what does an order of a function mean:
 
 \begin{itemize}
@@ -185,7 +191,9 @@ Functions with an order grater than 1 are callled higher-order functions and the
 \item they return a function as a result
 \end{itemize}
 
-An example is the following apply function written in Scala, which takes a function (defined on integers that returns a string) and an integer as parameters and returns the function application over the integer value: \par
+Being able to pass functions as parameters and return them as results means that functions are first-class citizens and is one of the  core concepts that make a functional language.
+
+An example is the following apply function written in Scala, which takes a function  and an integer as parameters and produces  a function as a result: \par
 
 \begin{lstlisting} 
 def apply(f: Int => String, v: Int) = f(v)
@@ -199,13 +207,15 @@ Classical higher-order functions over lists :
 \item Filtering : Collection of elements from a list which satisfy a particular condition
 \item Accumulation: Pair wise combination of the elements of a list to a value of
 another type
-\item Zipping: Combination of two lists to a single list
+\item Folding: Reducing a list over some function with accumulator
 \end{itemize}
 [http://people.cs.aau.dk/~normark/prog3-03/pdf/higher-order-fu.pdf]
 
 A study about high-order functions metrics and their corelation with software modularity was also conducted by B. Muddu et. al. \cite{DBLP:conf/icse/MudduABP13}. The proposed metric was studying the coupling between high order functions in diferent modules. It might be useful to make use also of their modularity metric when assesing code functional-ness.\par 
 
 \subsection {Monads}  \label{monads}
+Monads are a central design pattern of functional programming. They've been successfully used to abstract over well known problems in programming \cite{Jones01tacklingthe}: non-determinism as expressed by list, time/ concurrency, mutable state (see IO Monad Haskell), exception handling, foreign language calls.
+
 In Category Theory, a Monad is a functor equipped with a pair of natural transformations satisfying the laws of associativity and identity. In Scala, monads are just a parametric type M[T] with two operations, flatMap (or bind) and unit which also preserves associativity and identity. \par
 
 \begin{lstlisting}
@@ -246,7 +256,7 @@ object Test {
 \end{lstlisting}
 
 \section {State of the art - Literature study}
-In the first section we talked about elaborating a series of metrics, in order to asses one's code functional-ness but we didn't had the opportunity to provide a proper definition for the concept of a metric and it's status quo in software industry. So metrics offer a quantitative measure of a software property. 
+In the first section we talked about elaborating a series of metrics, in order to asses one's code functional-ness but we didn't have the opportunity to provide a proper definition for the concept of a metric and it's existing state of affairs in software industry. An easy definiton would be that metrics offer a quantitative measure of a software property. 
 
 \subsection{Metrics overview and their use in FP languages}
 
@@ -254,7 +264,7 @@ In the first section we talked about elaborating a series of metrics, in order t
 
 A metric is a measurement function, and a software quality metric is "a function whose inputs are software data and whose output is a single numerical value that can be interpreted as the degree to which software possesses a given attribute that affects its quality \cite{Kaner04softwareengineering}. To some extent, metrics could be regarded as compiler warnings, signaling that a part of your code needs more testing. Software metrics are used in Software Engineering for helping with software development activities such as testing and refactoring, performance optimization, debugging, cost estimation, etc. Some common software metrics include : source line of code (LOC), number of functions, cyclomatic complexity, code coverage, cohesion, coupling. \par
 
-Study of software metrics has been an active area of research since early 70' targeting mostly object oriented and imperative languages \cite{RyderT05:TFP_2005_Intellect}; as for functional languages, the number of published papers is not the numoerous; some of the prior work on metrics for functional languages was started almost 20 years ago by K. van den Berg in 1995 \cite{DBLP:journals/infsof/BergB95} who proposed a set of metrics for evaluating code complexity of Miranda functional programming language and Harrison which studied code modularity for SML \cite{eps250597}; 10 years later, Ryder and Thompson proposed some metrics for Haskell \cite{RyderT05:TFP_2005_Intellect} whereas  Muddu et. al. developed metrics for Scala \cite{DBLP:conf/icse/MudduABP13}. We can corelate the few number of papers on FP with the fact that FP does have yet such large adoption in software industry compared to object oriented and imperative languages. \par
+Study of software metrics has been an active area of research since early 70' targeting mostly object oriented and imperative languages \cite{RyderT05:TFP_2005_Intellect}; as for functional languages, the number of published papers is not the numoerous; some of the prior work on metrics for functional languages was started almost 20 years ago by K. van den Berg in 1995 \cite{DBLP:journals/infsof/BergB95} who proposed a set of metrics for evaluating code complexity of Miranda functional programming language and Harrison which studied code modularity for SML \cite{eps250597}; 10 years later, Ryder and Thompson proposed some metrics for Haskell \cite{RyderT05:TFP_2005_Intellect} whereas  Muddu et. al. developed metrics for Scala \cite{DBLP:conf/icse/MudduABP13}. We can corelate the few number of papers on FP with the fact that FP does have yet such large adoption in software industry compared to object oriented and imperative languages. So we can devide prior work on metrics into flow-graph metrics and functional-related metrics: referential transparency, high-order functions, pure functions\cite{DBLP:conf/icse/MudduABP13} \par
 
 Most commonly used metrics for functional languages in the papers we mentioned about are:
 
@@ -269,18 +279,25 @@ In oder to study the maintability, Basavaraju Muddu et. al. introduce a techniqu
 
 The biggest problem with code metrics is not the definition of new ones but the extraction of  meaningful information from them;code metrics without semantics attached to them are just plain numbers; we need to corelate them to some process development metrics and this is the hardest part, since process activities are difficult to cuantify; most of the research in FP metrics is targeting maintanability, code quality. We would like to see how functional property metrics impact refactorings; is there a way to detect 'functional code smells'?.  \par
 
+Given previous papers on measuring programs written in functional languages, we would like first to find means to measure (if possible) all functional properties described in the previous chapter and try to relate them to both code quality and possible refactorings; it would be nice to study if some object-oriented structres could be restructred to FP patterns. Huiqing Li propose a refactoring tool for functional programms written in Haskell\cite{Li:2003:TSR:871895.871899}; starting from here, we can imagine corelating our metrics with possible refactorings suggestions, of course, this goal is rather ambitious but it's worth a little more study on the matter.
+
 
 \subsection {Static analysis tools for Scala}
 There are already a couple of static analysis tools written for Scala : ScalaStyle, ScapeGoat, Wart remover, Linger and Scala Abide. These tools are looking possible errors that might appear in Scala code and also checks for a certain style of coding. Some of the checks they perform are: identation, illegal imports, multiple declared strings, null appearances, redundant if statements, cyclomatic complexity, unreachable catch statements, unexpected recursive definitions, unassigned variables, shadowing etc. \par
 
 Some metrics that could turn out to be useful for our study are  the presence, absence of vars and cyclomatic complexity; ScalaStyle checks that classes and objects do not define mutable fields and that functions do not define mutable variables (VarFieldChecker, VarLocalChecker) \cite{scalastyle} and it also has a metric for cyclomatic complexity. At least from an implementation perspective it would be worthwhile to take them into account.\par
 
-\section{Proposed solution}
-The first problem we need to solve is the detection of functional properties in our code. Using scalac compiler we should be able to extract the AST of the source code and then analyze it to collect functional programming features. The question is how much support is there in the compiler to signal the functional properties we enumerated above.Unfortunately, there are only a limited amount of resources online (http://lampwww.epfl.ch/~magarcia/ScalaCompilerCornerReloaded/) that talk about how to create plugins.
+\section{Conclusions and Future work}
+In this paper we've looked at the main characteristics defining functional code and discussed the existing body of work regarding metrics inside functional languages. The state-of-the-art leaves a lot of room for new investigation to detect flaws. This is will be the main purpose of our research.
 
-We would like to try also other modularization techniques: package based, SBT (Scala Build Tool)  modularization and relate them to our problem: establishing code functional-ness: would a good 'functional-ness' value for our proposed metric lead also to improved modularity?. \par
+The leading question of this work as presented in  section 1  is  'How can we determine the degree of code "functional-ness" '? What code patterns can we define as not being functional, how can we detect them and what can we do about them? \par
 
-\section{Conclusion}
+In most practical situations we cannot give binary answers on the functional-ness of a codebase. Instead we will make use of metrics to quantify this aspect. The first step will be to conduct a study on which functional elements can be measured and which not. We will need to establish the granularity of what we want to investigate: intra-method level, inter-method, class-level. Afterwards, we will design a series of metrics to measure functional properties of the program. \par
+
+The second step will be to implement a plugin in one of the main technologies used in the Scala ecosystem to make these measurements.\par
+
+The third step will be to apply our plugin against a substantially large codebase and evaluate its effectiveness in detecting code flaws and ``bad smells''. Our theoretical model should be complete enough to give reasons and refactoring suggestions for these when we detect them.
+
 
 
 \newpage
@@ -292,6 +309,7 @@ We would like to try also other modularization techniques: package based, SBT (S
 \end{document}
 
 
-
-
-
+%Futures, actors -> better abstractions [cite needed]
+%Map-reduce, -> [cite needed]
+%Tools -articles 
+%Cite for functional properties
