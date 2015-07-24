@@ -295,6 +295,229 @@ The metrics for referential transparency - function purity can be easily taken o
 
 Where  M - set of all functions/methods of the software and  Pure(m) - predicate that says if a function is pure or not. In this case, a value close to 1 corresponds to improved referential transparency while one close to 0 says that the property is not satisfied at all. \par
 
+\subsection {Coordinator guidance}
+
+\subsubsection {Problem definition}
+Cum ziceam, intrebarea cheie e la ce folosesti aceste metrici.
+
+Punerea problemei in sec. 2 nu e clar definita/motivata:
+"Scala is a hybrid programming lanaguage [...] there is no mechanism in
+the language that enforces a functional style [...]"
+
+Si atunci, unde, de ce, cat ar trebui sa scrii functional?
+Cand Radu Marinescu a inceput sa lucreze definind metrici pentru a detecta
+probleme de proiectare, acele probleme de proiectare erau in buna parte
+deja definite, dar trebuiau cuantificate si apoi detectate automat.
+
+Care e stilul de cod bun pe care l-ar propune expertul mentionat de tine?
+Cum arata un program bine scris in Scala ca limbaj hibrid?
+Trebuie sa fie perfect functional sau nu?
+Sigur, Meijer enumera cateva caracteristici functionale. Probabil codul
+predominant functional e bun, dar nu inseamna ca acela obiectual e prost
+sau are acele "code flaws" si "bad smells" de care vorbesti in concluzie.
+
+Deci cred ca ar trebui sa te lamuresti (nu in studiul asta) cum arata
+"codul ideal" pe care vrei sa-l masori. Sa si trebuiasca sa il definesti,
+sa validezi prin studii ce e bun si nu, si apoi sa gasesti metrici
+pentru caracterizare/detectie e prea mult.
+
+\subsubsection {General critique}
+
+Alex,
+
+am remarcat ca ai facut corecturi mai ales in prima parte, si ca ai
+adaugat concluzii.
+Pe ansamblu insa impresia e in primul rand ca vrei sa pui punct.
+
+Inteleg ca ai consumat timp (nu cred ca disproportionat fata de ce e
+in planul de invatamant), dar e totusi putin dezamagitor pentru ca
+fata de ce am citit din articolele pe care le-am gasit, si chiar
+fata de ce am schitat si comentat in mesajele scrise catre tine,
+regasesc destul de putin.
+
+O sa ma refer deci la partea de *studiu bibliografic*, care la tine
+incepe in sec. 4 si hai sa vedem ce aflam (exceptie: aflam in 3.2 ca
+[MABP13] defineste RTI). Deci:
+- vdBerg: code complexity in Miranda
+- Harrison: code modularity in SML
+- Ryder: metrics for Haskell
+- Muddu: metrics for Scala
+Dar NU aflam nici concret ce metrici se folosesc, nici ce concluzii
+s-au tras pe baza lor.
+
+Apoi vine clasificarea (apropos, ce am scris in mail despre flow-graph
+si functional-related tu ai scos din context si interpretat altfel:
+eu am spus ca asta ar fi in completare la bulinele tale, NU o impartire
+in doua categorii!).
+Ai cele 4 categorii. E bine ca le-ai extras sintetic si nu pe articol.
+Dar ce sunt 'pattern-related metrics'? Si de ce ar fi aplicabile
+mai mult la Haskell ? Cititorul afla foarte putin de aici, ramane mai
+mult cu o intrebare.
+
+Discutia mai detaliata o ai despre Muddu et al., dar tu descrii mai
+mult structura pe module decat metrici (singura metrica e cea din 3.2).
+
+Si aici se cam termina studiul bibliografic (mai aflam ca Li a
+refactorizat ceva Haskell, dar nu ce si cum).
+
+Facand rezumatul rezumatului, esenta e:
+- o enumerare de metrici (cele 4 buline), fara a *defini* de fapt
+concret aproape nicicare din ele (exceptie: RTI in 3.2)
+- trei limbaje pe care altii le-au analizat (Miranda, Haskell, Scala),
+in doua din cazuri, legat de modularizare.
+
+Daca incerc sa *inteleg*, analizand lista de metrici, constat ca
+ultimele 3 din 4 buline nu sunt specific functionale, si despre prima
+bulina, nu aflu nimic; sunt insa si metrici functionale (enumerarea
+dinainte, dar nu e clar cum le definesc -- de exemplu, in 3.2 spui
+"Further study is needed on elaborating how the pure function should be
+dened." desi aparent inainte ai citat o definitie clara (deci nu mi-e
+clar ce e clar si ce nu e clar si de ce).
+
+Pe de alta parte, am avut discutii repetate pe mail, tu mi-ai facut
+un rezumat al lui Harrison et al., eu ti-am facut rezumatul meu, etc.
+Unde se regasesc astea ?
+
+Am *citit* in mare toate articolele pe care ti le-am recomandat, si
+am *retinut* niste informatii, unele interesante, chiar daca nu toate
+strict legate de intentia ta, dar totusi relevante. Insa in studiul
+tau gasesc foarte putin care sa ma faca sa *aflu* si sa *inteleg*
+ce au facut altii. Uite, Pankratius et al (ICSE'12) scrie:
+"The study of [Harrison et al.] on SML versus C++ done 15 years ago
+was not conducted with a multi-paradigm language on multicore and
+unfortunately had implementations that were difficult to compare;
+however, that study reports similar results to ours that subjects
+need more effort to test functional code as opposed to imperative code."
+
+
+E o fraza, dar aflu o informatie utila despre ce au concluzionat altii.
+Desigur, e relevanta pentru studiul lor (legat de programatori), si
+nu pentru tine, dar e un exemplu despre cum un articol (care NU e un
+studiu bibliografic!) ma invata totusi, intr-un rand, despre alt articol.
+
+Sunt dezamagit si pentru ca am petrecut destul de mult timp cautand,
+citind (a fost placut si instructiv) dar si scriind mesaje, timp in care
+poate as fi putut sa imi fac sinteze pe alta tema pe care as putea poate
+sa si public. Iar primul care spune 'am lucrat destul' esti tot tu.
+Ar mai fi de comentat la concluzii, dar nu ma prea simt motivat
+in acest context.
+
+Deci, nu vreau sa te imping la un perfectionism exagerat, inteleg ca
+ai probabil multe de facut, am auzit de la un student zvonuri ca se
+poate preda studiul si la toamna (nu o sa cercetez sau comentez),
+pe scurt: ce ai scris imi spune din pacate foarte putin ca studiu
+bibliografic; ori acesta e scopul sau.
+
+cele bune,
+
+Marius
+
+
+
+Salut,
+
+nu cred ca e extraordinar de mult de scris.
+E bine ca ai clasificat metricile, cred ca se mai poate imbunatati,
+de exemplu erau flowgraph metrics sau metricile de tip functional
+(ref. transparency etc.) definite de Muddu et al.
+
+Apoi vine intrebarea cheie la ce se folosesc si la ce vrei sa le
+folosesti tu. Ryder vrea sa le coreleze cu erorile, dar e foarte
+incipient (poate e mai mult in teza, desi articolul e ulterior).
+van den Berg \& Broek vor tot ceva similar, dar par ca discuta in alte
+articole. Harrison compara FP vs. OO, Pankratius discuta experienta
+programatorilor, Muddu et al analizeaza modularitatea.
+
+Tu vrei sa vezi cat de functional e codul, dar trebuie sa te hotarasti
+ce sa faci cu informatia asta, mai ales ca Scala fiind un limbaj hibrid,
+(destul de) rar se programeaza complet functional in el.
+…
+
+
+
+
+O ora e normal daca studiezi articolul in detaliu; e mult pe articol,
+pentru ca nu tot ce gasesti e realmente relevant.
+Eu as citi introducere, concluzii, rezultate experimentale, si apoi
+daca prezinta interes, tehnica, metodologia etc.
+
+Obs: As folosi mai degraba metrici legate de (procesul de) dezvoltare vs.
+metrici de cod decat proces/produs, pare mai clar.
+
+Ce as retine:
+- metrici utile: numar de functii apelate / de biblioteca, raportul
+dintre ele; numarul de functii definite; adancimea ierarhiei de functii
+(poate si celelalte)
+- diferenta in raportul L/N*
+Secundar (nefiind obiectivul tau): metrici de eroare (erori / SLOC);
+discutabil (depinde de mediu, si studiul e vechi: timpul de testare);
+suprinzator: erori de interfata ???
+
+Pentru concluzia "alegere in functie de gust" nu e nevoie de articole.
+Partea cu numarul de modificari nu o remarcasem.
+
+Ce as cauta rapid: daca exista elemente suplimentare/clarificari in [1]:
+"The results of these preparatory studies have been reported in detail
+[l, 2]".
+
+Observatii: raritatea referintelor e un element potential problematic.
+Practic, ai 2 (grupuri de) articole de acum 20 de ani (van den Berg si
+Harrison), unul de acum 10 ani (Ryder et al), si putin recent (Muddu,
+Kiraly). O explicatie logica e ca FP e inca insuficient de larg folosita,
+iar cercetarea in metrici e puternic determinata de practica.
+Pe de alta parte e bine ca Meijer a propus asta ca o tema de master.
+Insa trebuie sa-ti pui problema ca metricile (si in general orice numere)
+nu au impact ca atare, ci doar daca sunt utile la ceva. E usor sa scrii
+articole in care sa *constati* ca ceva numere sunt diferite, si ceva de
+constatat se gaseste intotdeauna (asa sunt evaluarile experimentale
+superficiale). Ceva mai bine e daca poti sa *explici* numerele gasite
+(aici iar e pericolul de a enunta niste teorii/pareri nefondate).
+Realmente util e daca pe baza numerelor poti face ceva (la metrici:
+defecte de proiectare, refactorizare, focus pe testare, etc.)
+Deci probabil merita de explorat domeniul 'refactoring (to) functional'
+pentru a face corelari / a gasi puncte de impact.
+
+\subsubsection {References}
+
+O teza mai veche despre metrici in Haskell
+        $https://kar.kent.ac.uk/14117/1/SOFTWARE_MEASUREMENT_FOR.pdf$
+O analiza pentru proiecte in C\#/F\#: complexitate ciclomatica, dependente
+        http://fsharpforfunandprofit.com/posts/cycles-and-modularity-in-the-wild/
+(eu l-am putut accesa doar via archive.org). Vezi si ulterior
+        http://evelinag.com/blog/2014/06-09-comparing-dependency-networks/
+
+O discutie despre posibile metrici intr-un limbaj declarativ
+        https://sdqweb.ipd.kit.edu/publications/pdfs/kapova2010b.pdf
+
+Ryder \& Thompson'07: Software Metrics: Measuring Haskell https://kar.kent.ac.uk/14265/1/tfp-2005-paperFinal.pdf
+Muddu et al. '13: Metrics for modularization assessment of Scala and C\# systems
+(daca nu ai acces via UPT la IEEEXplore ti-l trimit).
+
+Tot pe linia de comparare OO - FP, grupul lui Harrison citat de
+Berg \& Broek are un raport tehnic in care printre altele discuta
+si ceva metrici:
+        http://cct.brookes.ac.uk/staff/resources/rachelharrison/report3-Harrison-95.pdf
+…
+
+Mai ai de exemplu si studiul asta
+        http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.261.3185
+care se axeaza pe programatori dar discuta tangential si caracteristici
+functionale/imperative de cod si folosirea lor.
+
+M-ar bucura sa aud ca ai cautat activ si ai mai gasit si tu ceva relevant.
+
+
+Cum ziceam, cauta pe Google Scholar sa vezi cine a mai citat pe
+Ryder respectiv van den Berg (nu sunt multe). Vineri gasisem niste
+articole din 2010 de la Budapesta care nu m-au atras pe moment,
+dar uite o sinteza din 2013
+        $http://ami.ektf.hu/uploads/papers/finalpdf/AMI_42_from29to44.pdf$
+si teza de doctorat a autorului
+$        http://www.tnkcs.inf.elte.hu/vedes/Kiraly_Roland_Tezisek_en.pdf$
+Deasemenea cred ca merita sa mai cauti prin articolele de refactorizare
+functionala (chiar daca nu o sa faci asta) pentru ca refactorizarea
+se face cu un scop, de a imbunatati anumite caracteristici (masurabile),
+deci implicit sunt gandite pornind de la o metrica.
 
 \subsection {Static analysis tools for Scala}
 There are already a couple of static analysis tools written for Scala : ScalaStyle, ScapeGoat, Wart remover, Linger and Scala Abide. These tools are looking possible errors that might appear in Scala code and also checks for a certain style of coding. Some of the checks they perform are: identation, illegal imports, multiple declared strings, null appearances, redundant if statements, cyclomatic complexity, unreachable catch statements, unexpected recursive definitions, unassigned variables, shadowing etc. \par
