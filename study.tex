@@ -79,6 +79,8 @@ Functional programming has started to gain more traction in the last years, than
   \caption{Google search hits for programming languages - 2004 to July, 2015 }
   \label{fig:google-rank}
 \end{figure}
+There is a growing interest in functional programming languages, because of their expressive power and the possibility to reason about correctness of programs. There are claims on the readability of functional programs, for example: 'In many cases the functional programming style yields more elegant and comprehensible programs than the imperative programming style' (Springer \& Friedman, 1990) and 'Functional programming leads to programs which are exceptionally clear and concise and to the prospect of greatly increased software reliability and development speed' (Bailey, 1990). In a case study on the productivity of programming in a functional programming environment, some of these claims have been confirmed (Sanders, 1989).
+Moreover, the learning of programming in a functional programming style should have advantages over learning in an imperative style (Springer \& Friedman, 1990; Bailes \& Salzman, 1989). \cite{DBLP:journals/infsof/BergB95} \par
 
 Scala is one of the leading functional programming languages, over the last couple of years being adopted by large companies such as  Twitter(2009), Linkedin(2010), The Guardian, Foursquare. If we look at 'RedMonk Programming Languages Rankings'\cite{redmonk:1}, which is based on StackOverflow and Github analysis,  Scala occupies a worthy 14th position, being the first FP language in the top . \par
 
@@ -104,6 +106,7 @@ Another reason why functional programming comes in handy nowadays is that multip
 Scala is a hybrid programming lanaguage combining both  functional and  object oriented elements \cite{scalalang:1}. Writing Scala code does not imply you are writing functional code;  there is no mechanism in the language that enforces a functional style of programming; so one can say they write code in Scala so they use functional programming when in fact their code base is entirely procedural. I was also put in such a position,  being one of the many  developers that switched from an Object Oriented language(Java /C\#/C++xs etc.)  to Scala. So how can one figure out if his Scala code follows the functional programming principles or not? The classic approach is to ask a functional programming expert for code review, if you are lucky enough to have access to such valuable resources. \par
 
 The solution we propose is a set of metrics that should be able to quantify to what degree the code is making use of the functional paradigm. But what  qualifies a code as being functional? What are the characteristics of functional code? In the following section we will elaborate the main characteristics of functional programming languages.\par
+
 
 \section {Theoretical Foundations}
 First of all we need to establish the main elements of functional languages and we will do so by taking Scala as an example. Only then we can elaborate further on the metrics and decide which ones are to be considered for the study. \par
@@ -262,9 +265,32 @@ In the first section we talked about elaborating a series of metrics, in order t
 
 \textit{"When you can measure what you are speaking about and express it in numbers, you know something about it; but when you cannot measure it, when you cannot express it in numbers, your knowledge is of a meagre and unsatisfactory kind: it may be the beginnings of knowledge but you have scarcely in your thoughts advanced to the stage of Science." (Lord Kelvin)}\par
 
-A metric is a measurement function, and a software quality metric is "a function whose inputs are software data and whose output is a single numerical value that can be interpreted as the degree to which software possesses a given attribute that affects its quality \cite{Kaner04softwareengineering}. To some extent, metrics could be regarded as compiler warnings, signaling that a part of your code needs more testing. Software metrics are used in Software Engineering for helping with software development activities such as testing and refactoring, performance optimization, debugging, cost estimation, etc. Some common software metrics include : source line of code (LOC), number of functions, cyclomatic complexity, code coverage, cohesion, coupling. \par
+A metric is a measurement function, and a software quality metric is "a function whose inputs are software data and whose output is a single numerical value that can be interpreted as the degree to which software possesses a given attribute that affects its quality'' \cite{Kaner04softwareengineering}. To some extent, metrics could be regarded as compiler warnings, signaling that a part of your code needs more testing. Software metrics are used in Software Engineering for helping with software development activities such as testing and refactoring, performance optimization, debugging, cost estimation, etc. Some common software metrics include : source line of code (LOC), number of functions, cyclomatic complexity, code coverage, cohesion, coupling. \par
 
-Study of software metrics has been an active area of research since early 70' targeting mostly object oriented and imperative languages \cite{RyderT05:TFP_2005_Intellect}; as for functional languages, the number of published papers is not the numoerous; some of the prior work on metrics for functional languages was started almost 20 years ago by K. van den Berg in 1995 \cite{DBLP:journals/infsof/BergB95} who proposed a set of metrics for evaluating code complexity of Miranda functional programming language and Harrison which studied code modularity for SML \cite{eps250597}; 10 years later, Ryder and Thompson proposed some metrics for Haskell \cite{RyderT05:TFP_2005_Intellect} whereas  Muddu et. al. developed metrics for Scala \cite{DBLP:conf/icse/MudduABP13}. We can corelate the few number of papers on FP with the fact that FP does have yet such large adoption in software industry compared to object oriented and imperative languages. So we can devide prior work on metrics into flow-graph metrics and functional-related metrics: referential transparency, high-order functions, pure functions\cite{DBLP:conf/icse/MudduABP13} \par
+Study of software metrics has been an active area of research since early 70' targeting mostly object oriented and imperative languages \cite{RyderT05:TFP_2005_Intellect}; as for functional languages, the number of published papers is not the numoerous; some of the prior work on metrics for functional languages was started almost 20 years ago by K. van den Berg in 1995 \cite{DBLP:journals/infsof/BergB95} who proposed a set of metrics for evaluating code complexity of Miranda functional programming language and Harrison which studied code modularity for SML \cite{eps250597}; 10 years later, Ryder and Thompson proposed some metrics for Haskell \cite{RyderT05:TFP_2005_Intellect} whereas  Muddu et. al. developed metrics for Scala \cite{DBLP:conf/icse/MudduABP13}. We can corelate the few number of papers on FP with the fact that FP does have yet such large adoption in software industry compared to object oriented and imperative languages.  \par
+
+K. van den Berg performed a coparison study regarding code coprehensibility of program code: how easy is it to a developer to read and understand a program in order to find and fix some errors or to adapt to changing requirements. The languages that were studied are Pascal and Miranda, the first being the representative for `imperative languages`, the last representing `functional languages`. \par
+
+The metrics K. van den Berg used for gathering information about code comprehension can be devided into call graph and control flow graph metrics.
+
+We will use the software metrics based on Halstead's Software Science (1977) and the cyclomatic complexity number of McCabe (1976). The study of Curtis (1981) shows empirical evidence that the complexity metrics of McCabe and Halstead relate to the psychologi- cal complexity, as expressed in the difficulty in understanding and modifying software. The relation between syntactic complexity and cognitive complexity has been investigated by Khalil \& Clark (1989). Shen, Conte \& Dunsmore (1983) give a critical review of Software Science. They show that the effort E, as defined by Halstead (see below), correlates with the understandability of programs. However, the psychological aspects of the Halstead metrics have been criticised (Coulter, 1983). \cite{DBLP:journals/infsof/BergB95}
+
+Halstead in his Software Science paper defines 4 kinds of metrics: 
+
+\begin{center}
+$\eta1$ - the number of unique operators \par
+$\eta2$ - the number of unique operands \par
+$N1$ - the total number of operators \par
+$N2$ - the total number of operands \par
+\end{center}
+
+Using this terminology, one can define the following:\par
+\begin{center}
+$\eta = \eta1 + \eta2 $ - the vocabulary of a program \par
+$N = N1 + N2 $ - the length of a program as total number of tokens \par
+$V = N x \log2 \eta $ the size of a program (volume)
+\end{center}
+
 
 Most commonly used metrics for functional languages in the papers we mentioned about are:
 
@@ -274,6 +300,9 @@ Most commonly used metrics for functional languages in the papers we mentioned a
 \item Call graph metrics - strong connections, in degree, out degree, depth, width, arc-to-node ratio
 \item Function atributes - path count, number of operands vs operators
 \end{itemize}
+
+So we can devide prior work on metrics into flow-graph metrics and functional-related metrics: referential transparency, high-order functions, pure functions\cite{DBLP:conf/icse/MudduABP13} \par
+
 
 In oder to study the maintability, Basavaraju Muddu et. al. introduce a technique for breaking software into logical modules \cite{DBLP:conf/icse/MudduABP13} The technique they chose was Modularizing by  Inverse-Depth heuristic, which is based of the project's file directory structure; they start at the source root folder and compute for each branch the maximum depth; then starting from the bottom up, they assign a module up to a certain depth; in their study, they use inverse depth of 1 for selecting modules, arguing that these are the closest approximation to actual logical modules. We would like to try other modularization techniques: package based, SBT (Scala Build Tool)  modularization and relate them to our problem: establishing code functional-ness: would a good 'functional-ness' value for our proposed metric lead also to improved modularity?.\par
 
@@ -285,6 +314,8 @@ Given previous papers on measuring programs written in functional languages, we 
 Pankratius et. al. performed a comparison study on Scala and Java's parallel programming features and performance \cite{Pankratius_combiningfunctional}. Their study shows that writing Scala code results in fewer lines of code than in Java and it preserves the application performance overall. One problem they notice is that Scala's support for parallelism is not as good as Java's. On top of that, Scala seems to require more debugging in testing effort which is quite problematic. One would expect that functional code should lead to fewer, easy to test lines of code. \par
 
 An interesting point in their conclusion is that the top software developers participating in their study wrote a hybrid program, half functional and half imperative. So what would be the right balance between FP and imperative for a 'good Scala program'? \par
+
+val, list, map, filter, flatmap, foreach, ::: (list concatenation), :: (list cons operator) indicate a functional style. We count the occurrences of all such constructs in each project and calculate the percentage of how many belong to the imperative class and how many belong to the functional class. Figure 6 summarizes the results of this analysis for each subject in the study. \cite{Pankratius_combiningfunctional}
 
 \subsection{ Metrics for modularization assessment of Scala and C{\#} systems }
 Basavaraju Muudu et. al. \cite{DBLP:conf/icse/MudduABP13} propose a series of metrics for Scala that target modularity with respect to Functional Programming features like : referential transparency, functional purity, first order functions and also Object Oriented features such as inheritance. They give the following definition for a module: ' A module is a logical collection of related files which can be modified and tested independently. A well modularized system will have low inter-module coupling and high intra-module cohesion. It helps the designers to add new modules easily.'\cite{DBLP:conf/icse/MudduABP13}. As one can see, this definition does not imply an exact rule for discovering  modules, so the system can contain a variable number of modules, depending how one delimits a module. \par
@@ -328,17 +359,6 @@ pentru caracterizare/detectie e prea mult.
 
 \subsubsection {General critique}
 
-Alex,
-
-am remarcat ca ai facut corecturi mai ales in prima parte, si ca ai
-adaugat concluzii.
-Pe ansamblu insa impresia e in primul rand ca vrei sa pui punct.
-
-Inteleg ca ai consumat timp (nu cred ca disproportionat fata de ce e
-in planul de invatamant), dar e totusi putin dezamagitor pentru ca
-fata de ce am citit din articolele pe care le-am gasit, si chiar
-fata de ce am schitat si comentat in mesajele scrise catre tine,
-regasesc destul de putin.
 
 O sa ma refer deci la partea de *studiu bibliografic*, care la tine
 incepe in sec. 4 si hai sa vedem ce aflam (exceptie: aflam in 3.2 ca
@@ -498,19 +518,26 @@ Ryder \& Thompson'07: Software Metrics: Measuring Haskell https://kar.kent.ac.uk
 Muddu et al. '13: Metrics for modularization assessment of Scala and C\# systems
 (daca nu ai acces via UPT la IEEEXplore ti-l trimit).
 
+
+---------------------------------------------------------------------------
 Tot pe linia de comparare OO - FP, grupul lui Harrison citat de
 Berg \& Broek are un raport tehnic in care printre altele discuta
 si ceva metrici:
         http://cct.brookes.ac.uk/staff/resources/rachelharrison/report3-Harrison-95.pdf
-…
 
+
+
+CITIT -> Concluzie legata de refolosirea codului SML vs C++ : nici o alta difrenta in rest        
+-----------------------------------------------------------------------------
 Mai ai de exemplu si studiul asta
         http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.261.3185
 care se axeaza pe programatori dar discuta tangential si caracteristici
 functionale/imperative de cod si folosirea lor.
-
 M-ar bucura sa aud ca ai cautat activ si ai mai gasit si tu ceva relevant.
 
+
+REZUMAT FACUT
+------------------------------------------------------------------------------
 
 Cum ziceam, cauta pe Google Scholar sa vezi cine a mai citat pe
 Ryder respectiv van den Berg (nu sunt multe). Vineri gasisem niste
@@ -524,6 +551,8 @@ functionala (chiar daca nu o sa faci asta) pentru ca refactorizarea
 se face cu un scop, de a imbunatati anumite caracteristici (masurabile),
 deci implicit sunt gandite pornind de la o metrica.
 
+CITIT
+------------------------------------------------------------------------------
 \subsection {Static analysis tools for Scala}
 There are already a couple of static analysis tools written for Scala : ScalaStyle, ScapeGoat, Wart remover, Linger and Scala Abide. These tools are looking possible errors that might appear in Scala code and also checks for a certain style of coding. Some of the checks they perform are: identation, illegal imports, multiple declared strings, null appearances, redundant if statements, cyclomatic complexity, unreachable catch statements, unexpected recursive definitions, unassigned variables, shadowing etc. \par
 
