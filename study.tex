@@ -269,28 +269,41 @@ A metric is a measurement function, and a software quality metric is "a function
 
 Study of software metrics has been an active area of research since early 70' targeting mostly object oriented and imperative languages \cite{RyderT05:TFP_2005_Intellect}; as for functional languages, the number of published papers is not the numoerous; some of the prior work on metrics for functional languages was started almost 20 years ago by K. van den Berg in 1995 \cite{DBLP:journals/infsof/BergB95} who proposed a set of metrics for evaluating code complexity of Miranda functional programming language and Harrison which studied code modularity for SML \cite{eps250597}; 10 years later, Ryder and Thompson proposed some metrics for Haskell \cite{RyderT05:TFP_2005_Intellect} whereas  Muddu et. al. developed metrics for Scala \cite{DBLP:conf/icse/MudduABP13}. We can corelate the few number of papers on FP with the fact that FP does have yet such large adoption in software industry compared to object oriented and imperative languages.  \par
 
-K. van den Berg performed a coparison study regarding code coprehensibility of program code: how easy is it to a developer to read and understand a program in order to find and fix some errors or to adapt to changing requirements. The languages that were studied are Pascal and Miranda, the first being the representative for `imperative languages`, the last representing `functional languages`. \par
+K. van den Berg performed a coparison study regarding code coprehensibility of program code: how easy is it to a developer to read and understand a program in order to find and fix some errors or to adapt to changing requirements. The languages that were studied are Pascal and Miranda, the first being the representative for `imperative languages`, the last representing `functional languages`. One of the metrics he chose to use are Halstead and McGabe's, which were adapted for both programming paradigms. \par
 
-The metrics K. van den Berg used for gathering information about code comprehension can be devided into call graph and control flow graph metrics.
-
-We will use the software metrics based on Halstead's Software Science (1977) and the cyclomatic complexity number of McCabe (1976). The study of Curtis (1981) shows empirical evidence that the complexity metrics of McCabe and Halstead relate to the psychologi- cal complexity, as expressed in the difficulty in understanding and modifying software. The relation between syntactic complexity and cognitive complexity has been investigated by Khalil \& Clark (1989). Shen, Conte \& Dunsmore (1983) give a critical review of Software Science. They show that the effort E, as defined by Halstead (see below), correlates with the understandability of programs. However, the psychological aspects of the Halstead metrics have been criticised (Coulter, 1983). \cite{DBLP:journals/infsof/BergB95}
-
-Halstead in his Software Science paper defines 4 kinds of metrics: 
+Halstead metrics can be expressed as :
 
 \begin{center}
-$\eta1$ - the number of unique operators \par
-$\eta2$ - the number of unique operands \par
-$N1$ - the total number of operators \par
-$N2$ - the total number of operands \par
+$\eta_1$ - the number of unique operators \par
+$\eta_2$ - the number of unique operands \par
+$N_1$ - the total number of operators \par
+$N_2$ - the total number of operands \par
+$\eta_2'$ - the number of different input/output parametes \par
 \end{center}
 
 Using this terminology, one can define the following:\par
 \begin{center}
-$\eta = \eta1 + \eta2 $ - the vocabulary of a program \par
-$N = N1 + N2 $ - the length of a program as total number of tokens \par
-$V = N x \log2 \eta $ the size of a program (volume)
+$\eta = \eta_1 + \eta_2 $ - the vocabulary of a program \par
+$N = N_1 + N_2 $ - the length of a program as total number of tokens \par
+$V = N * \log _2 \eta $ - the size of a program (volume) \par
+$V' = (2 + \eta_2')*\log_2(2 + \eta_2')$ - the potential volume of a program \par
+$L = V' / V $ - program level or level of implementation \par
+$E = V / L $ - effort to generate a program
 \end{center}
 
+McGabe's metrics for ciclomatic complexity focus on the decision structure of a program. The program is viewed as a decision graph G, having a unique entry and exit point. Every edge in the graph represents a decision branch while every node is a decision point. This metric is related to the difficulty of testing a program. The metric can be expressed as :
+\begin{center}
+$e$ - the number of edges in the program graph \par
+$n$ - the number of nodes \par
+$v(G) = e - n + 2$ - the ciclomatic complexity number
+\end{center}
+
+The study of Curtis (1981) shows empirical evidence that the complexity metrics of McCabe and Halstead relate to the psychological complexity, as expressed in the difficulty in understanding and modifying software. The relation between syntactic complexity and cognitive complexity has been investigated by Khalil \& Clark (1989). Shen, Conte \& Dunsmore (1983) give a critical review of Software Science. They show that the effort E, as defined by Halstead, correlates with the understandability of programs. . \cite{DBLP:journals/infsof/BergB95}. \par
+
+What we take for our study of  K. van den Berg's paper is the adoption of Halstead and McGabe's metrics for functional programs. Using these metrics we could asses complexity the complexity of our functional program and we could correlate it with other metrics. 
+
+
+\newpage
 
 Most commonly used metrics for functional languages in the papers we mentioned about are:
 
