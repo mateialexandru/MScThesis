@@ -300,7 +300,17 @@ $v(G) = e - n + 2$ - the ciclomatic complexity number
 
 The study of Curtis (1981) shows empirical evidence that the complexity metrics of McCabe and Halstead relate to the psychological complexity, as expressed in the difficulty in understanding and modifying software. The relation between syntactic complexity and cognitive complexity has been investigated by Khalil \& Clark (1989). Shen, Conte \& Dunsmore (1983) give a critical review of Software Science. They show that the effort E, as defined by Halstead, correlates with the understandability of programs. . \cite{DBLP:journals/infsof/BergB95}. \par
 
-What we take for our study of  K. van den Berg's paper is the adoption of Halstead and McGabe's metrics for functional programs. Using these metrics we could asses complexity the complexity of our functional program and we could correlate it with other metrics. 
+What we take for our study of  K. van den Berg's paper is the adoption of Halstead and McGabe's metrics for functional programs. Using these metrics we could asses the complexity of our functional program and we could correlate it with other metrics. 
+
+Another study that targeted a comparison between imperative and functional languages was that of R. Harrison et. al. \cite{eps250597} . After comparing C++ with SML they reached to the conclusion that SML code is more reusable then C++ but it also takes longer to be tested; one of the reason why testing takes so much was that SML needed to be reloaded before tests were run. \par
+
+Their approach was to find a correlation between development metrics such as : number of know errors (KE), time to fix errors(TKE), number of modification requests (MR), time to implement modifications(TMR) and a subjective assement of complexity(SC) and some code metrics; the code metrics of their choice where the number of non-commmented lines (ncsl), number of distinct functions ($N'$), number of distinct library functions (L), number of distinct domain functions(D), depth of function hierarchy chart, number of function declarations, number of function definitions. \par
+
+A nice metric for reusability that we can further use in our pursue of code functional-ness is reusability expressed as the ratio between number of library functions called ($L$) and number of distinct functions ($N'$): $R = L / N'$.
+
+
+
+
 
 
 \newpage
@@ -540,7 +550,8 @@ si ceva metrici:
 
 
 
-CITIT -> Concluzie legata de refolosirea codului SML vs C++ : nici o alta difrenta in rest        
+CITIT -> Concluzie legata de refolosirea codului SML vs C++ : nici o alta diferenta in rest        
+REZUMAT FACUT
 -----------------------------------------------------------------------------
 Mai ai de exemplu si studiul asta
         http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.261.3185
