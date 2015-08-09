@@ -269,63 +269,127 @@ A metric is a measurement function, and a software quality metric is "a function
 
 Study of software metrics has been an active area of research since early 70' targeting mostly object oriented and imperative languages \cite{RyderT05:TFP_2005_Intellect}; as for functional languages, the number of published papers is not the numoerous; some of the prior work on metrics for functional languages was started almost 20 years ago by K. van den Berg in 1995 \cite{DBLP:journals/infsof/BergB95} who proposed a set of metrics for evaluating code complexity of Miranda functional programming language and Harrison which studied code modularity for SML \cite{eps250597}; 10 years later, Ryder and Thompson proposed some metrics for Haskell \cite{RyderT05:TFP_2005_Intellect} whereas  Muddu et. al. developed metrics for Scala \cite{DBLP:conf/icse/MudduABP13}. We can corelate the few number of papers on FP with the fact that FP does have yet such large adoption in software industry compared to object oriented and imperative languages.  \par
 
+\subsection{Static analysis of functional programs- K. van den Berg}
 K. van den Berg performed a coparison study regarding code coprehensibility of program code: how easy is it to a developer to read and understand a program in order to find and fix some errors or to adapt to changing requirements. The languages that were studied are Pascal and Miranda, the first being the representative for `imperative languages`, the last representing `functional languages`. One of the metrics he chose to use are Halstead and McGabe's, which were adapted for both programming paradigms. \par
 
 Halstead metrics can be expressed as :
 
-\begin{center}
-$\eta_1$ - the number of unique operators \par
-$\eta_2$ - the number of unique operands \par
-$N_1$ - the total number of operators \par
-$N_2$ - the total number of operands \par
-$\eta_2'$ - the number of different input/output parametes \par
-\end{center}
+\begin{itemize}
+\item $\eta_1$ - the number of unique operators \par
+\item $\eta_2$ - the number of unique operands \par
+\item $N_1$ - the total number of operators \par
+\item$N_2$ - the total number of operands \par
+\item$\eta_2'$ - the number of different input/output parametes \par
+\end{itemize}
 
 Using this terminology, one can define the following:\par
-\begin{center}
-$\eta = \eta_1 + \eta_2 $ - the vocabulary of a program \par
-$N = N_1 + N_2 $ - the length of a program as total number of tokens \par
-$V = N * \log _2 \eta $ - the size of a program (volume) \par
-$V' = (2 + \eta_2')*\log_2(2 + \eta_2')$ - the potential volume of a program \par
-$L = V' / V $ - program level or level of implementation \par
-$E = V / L $ - effort to generate a program
-\end{center}
+\begin{itemize}
+\item $\eta = \eta_1 + \eta_2 $ - the vocabulary of a program \par
+\item $N = N_1 + N_2 $ - the length of a program as total number of tokens \par
+\item $V = N * \log _2 \eta $ - the size of a program (volume) \par
+\item $V' = (2 + \eta_2')*\log_2(2 + \eta_2')$ - the potential volume of a program \par
+\item $L = V' / V $ - program level or level of implementation \par
+\item $E = V / L $ - effort to generate a program
+\end{itemize}
 
 McGabe's metrics for ciclomatic complexity focus on the decision structure of a program. The program is viewed as a decision graph G, having a unique entry and exit point. Every edge in the graph represents a decision branch while every node is a decision point. This metric is related to the difficulty of testing a program. The metric can be expressed as :
-\begin{center}
-$e$ - the number of edges in the program graph \par
-$n$ - the number of nodes \par
-$v(G) = e - n + 2$ - the ciclomatic complexity number
-\end{center}
+\begin{itemize}
+\item $e$ - the number of edges in the program graph \par
+\item $n$ - the number of nodes \par
+\item $v(G) = e - n + 2$ - the ciclomatic complexity number
+\end{itemize}
 
 The study of Curtis (1981) shows empirical evidence that the complexity metrics of McCabe and Halstead relate to the psychological complexity, as expressed in the difficulty in understanding and modifying software. The relation between syntactic complexity and cognitive complexity has been investigated by Khalil \& Clark (1989). Shen, Conte \& Dunsmore (1983) give a critical review of Software Science. They show that the effort E, as defined by Halstead, correlates with the understandability of programs. . \cite{DBLP:journals/infsof/BergB95}. \par
 
 What we take for our study of  K. van den Berg's paper is the adoption of Halstead and McGabe's metrics for functional programs. Using these metrics we could asses the complexity of our functional program and we could correlate it with other metrics. 
 
+\subsection{Comparing Programming Paradigms: an Evaluation of Functional and Object-Oriented Programs - R.Harrisson et. al.}
 Another study that targeted a comparison between imperative and functional languages was that of R. Harrison et. al. \cite{eps250597} . After comparing C++ with SML they reached to the conclusion that SML code is more reusable then C++ but it also takes longer to be tested; one of the reason why testing takes so much was that SML needed to be reloaded before tests were run. \par
 
 Their approach was to find a correlation between development metrics such as : number of know errors (KE), time to fix errors(TKE), number of modification requests (MR), time to implement modifications(TMR) and a subjective assement of complexity(SC) and some code metrics; the code metrics of their choice where the number of non-commmented lines (ncsl), number of distinct functions ($N'$), number of distinct library functions (L), number of distinct domain functions(D), depth of function hierarchy chart, number of function declarations, number of function definitions. \par
 
-A nice metric for reusability that we can further use in our pursue of code functional-ness is reusability expressed as the ratio between number of library functions called ($L$) and number of distinct functions ($N'$): $R = L / N'$.
+A nice metric for reusability that we can further use in our pursue of code functional-ness is reusability expressed as the ratio between number of library functions called ($L$) and number of distinct functions ($N'$): $R = L / N'$. \par
 
-
-
-
-
-
-\newpage
-
-Most commonly used metrics for functional languages in the papers we mentioned about are:
-
+\subsection{Software Metrics: Measuring Haskell - Chris Ryder and Simon Thompson}
+In their paper, Ryder and Thompson propse a collection of software metrics of Haskell programs. They can be devided into:
 \begin{itemize}
-\item Pattern related metrics - applies mostly to Haskell
-\item Scoping metrics -how many scopes does a function introduce, the number of declatations brought in scope
-\item Call graph metrics - strong connections, in degree, out degree, depth, width, arc-to-node ratio
-\item Function atributes - path count, number of operands vs operators
+\item pattern metrics - measuring pattern matching complexity
+\item distance metrics - scoping length, size, etc.
+\item callgraph attributes 
+\item function attributes
 \end{itemize}
 
-So we can devide prior work on metrics into flow-graph metrics and functional-related metrics: referential transparency, high-order functions, pure functions\cite{DBLP:conf/icse/MudduABP13} \par
+\subsubsection{Pattern metrics}
+\begin{itemize}
+\item Pattern size (PSIZ) - number of components of the pattern's abstract syntax tree (AST)
+\item Number of pattern variables (NPVS) - pattern variables represent new identifiers that are added to the program scope
+\item Number of overriden/overrided pattern variables (NOPV) - one can mistakely override some variables already presented in scope when pattern matching
+\item Number of pattern constructors (PATC) 
+\item Number of wildcards used (WILD) -  wildcards may convey information about the structure of items in the pattern, e.g. the position of constructor arguments.
+\item Depth of nesting - how many patterns are nested in one pattern matching expression e.g. Car(Wheels(Michelin(\_)), Motor(Wolkswagen(100CP(\_))))
+\subitem Sum of the dept of nesting (SDNP)
+\subitem Maximum depth of nesting (MDNP)
+\end{itemize}
 
+\subsubsection{Distance metrics}
+
+\begin{itemize}
+\item Number of new scopes (NNS) - measure the distance between declaration and usage and how many new scopes were introduced in between; this should indicate how complex the name-space is at that use
+\item Number of declarations brought into scope (NDBS) - how many declarations have been introduced into the name-space \ref{fig:scope-distance}
+
+\begin{figure}[h!]
+  \includegraphics[width=\linewidth]{scope-distance.png}
+  \caption{Measuring distance by the number of declarations brought into scope}
+  \label{fig:scope-distance}
+\end{figure}
+
+\item Number of source lines - “spatial” distance in the source code; measuring the distance between the use of an identifier and the import statement that brings it into scope, plus the distance between the declaration and the start of the module in which it is defined. \ref{fig:scope-measure}
+
+\begin{figure}[h!]
+  \includegraphics[width=\linewidth]{scope-measure.png}
+  \caption{Measuring distance between use of identifier and import statement }
+  \label{fig:scope-measure}
+\end{figure}
+
+\item Number of parse tree nodes - count the number of parse tree nodes on the path between two points of the parse tree
+
+\end{itemize}
+
+
+\subsubsection{Callgraph attributes}
+\begin{itemize}
+\item Strongly connected component size (SCCS) - A strongly connected component (SCC) is a subgraph in which all the nodes (functions) are connected (call) directly or indirectly to all the other nodes; as the size of the SCC increases, the number of changes is likely to increase as well, because a change to a single function may cause changes to other functions in the SCC. SCCS is a measure of coupling, similar to imperative and OO coupling metrics such as the Coupling between object classes (CBO), still it measures indirect coupling between functions, not objects (CBO)
+\item Indegree (IDEG) - The indegree of a function in the callgraph is the number of functions that use it. Functions with high IDEG values may be more important, because they are heavily reused in the program and therefore changes to them may affect much of the program.
+\item Outdegree (OUTDEG) - The outdegree of a function in the callgraph is the number of functions it calls.
+\item Arc-to-node ratio (ATNR) - The arc-to-node ratio is a useful indicator of how “busy” a graph is.
+\item Callgraph Depth (CGDP)
+\item Callgraph Width (CGWD) - The subgraph of a function may be cyclic but can be transformed into a tree by breaking its cycle \ref{fig:subgraph-brake}
+\begin{figure}[h!]
+  \includegraphics[width=\linewidth]{subgraph-brake.png}
+  \caption{Breaking a cycle of a subgraph}
+  \label{fig:subgraph-brake}
+\end{figure}
+
+\end{itemize}
+
+\subsubsection{Function attributes}
+\begin{itemize}
+\item Pathcount (PATH) - Pathcount is a measure of the number of logical paths through a function
+\item Operators (OPRT) -number of function operators
+\item Operands (OPRD) - number of function operands \newline 
+The last two are a measure of function size. A large function is more likely to be complex than a small one.
+\end{itemize}
+
+In order to validate their metrics, Ryder and Thompson performed analysis over a program's lifetime bug fixes and refactorings. Their conclusions: OUTD metrics is correlated with the number of changes and also SCCS has a significant correlation. They also studied cross correlation between metrics presented above \ref{fig:cross-correlation}.
+
+\begin{figure}[h!]
+  \includegraphics[width=\linewidth]{cross-correlation.png}
+  \caption{Strongly correlated metrics}
+  \label{fig:cross-correlation}
+\end{figure}
+
+\newpage
+\subsection{ Bullshit}
 
 In oder to study the maintability, Basavaraju Muddu et. al. introduce a technique for breaking software into logical modules \cite{DBLP:conf/icse/MudduABP13} The technique they chose was Modularizing by  Inverse-Depth heuristic, which is based of the project's file directory structure; they start at the source root folder and compute for each branch the maximum depth; then starting from the bottom up, they assign a module up to a certain depth; in their study, they use inverse depth of 1 for selecting modules, arguing that these are the closest approximation to actual logical modules. We would like to try other modularization techniques: package based, SBT (Scala Build Tool)  modularization and relate them to our problem: establishing code functional-ness: would a good 'functional-ness' value for our proposed metric lead also to improved modularity?.\par
 
@@ -514,6 +578,7 @@ Harrison), unul de acum 10 ani (Ryder et al), si putin recent (Muddu,
 Kiraly). O explicatie logica e ca FP e inca insuficient de larg folosita,
 iar cercetarea in metrici e puternic determinata de practica.
 Pe de alta parte e bine ca Meijer a propus asta ca o tema de master.
+
 Insa trebuie sa-ti pui problema ca metricile (si in general orice numere)
 nu au impact ca atare, ci doar daca sunt utile la ceva. E usor sa scrii
 articole in care sa *constati* ca ceva numere sunt diferite, si ceva de
@@ -522,6 +587,7 @@ superficiale). Ceva mai bine e daca poti sa *explici* numerele gasite
 (aici iar e pericolul de a enunta niste teorii/pareri nefondate).
 Realmente util e daca pe baza numerelor poti face ceva (la metrici:
 defecte de proiectare, refactorizare, focus pe testare, etc.)
+
 Deci probabil merita de explorat domeniul 'refactoring (to) functional'
 pentru a face corelari / a gasi puncte de impact.
 
@@ -538,17 +604,18 @@ O discutie despre posibile metrici intr-un limbaj declarativ
         https://sdqweb.ipd.kit.edu/publications/pdfs/kapova2010b.pdf
 
 Ryder \& Thompson'07: Software Metrics: Measuring Haskell https://kar.kent.ac.uk/14265/1/tfp-2005-paperFinal.pdf
+
+----------------------------------------------------------------------------
 Muddu et al. '13: Metrics for modularization assessment of Scala and C\# systems
 (daca nu ai acces via UPT la IEEEXplore ti-l trimit).
 
-
+CITIT -> Facut rezumat despre modularizare dar nu si despre metrici
+REZUMAT FACUT despre toate metricile
 ---------------------------------------------------------------------------
 Tot pe linia de comparare OO - FP, grupul lui Harrison citat de
 Berg \& Broek are un raport tehnic in care printre altele discuta
 si ceva metrici:
         http://cct.brookes.ac.uk/staff/resources/rachelharrison/report3-Harrison-95.pdf
-
-
 
 CITIT -> Concluzie legata de refolosirea codului SML vs C++ : nici o alta diferenta in rest        
 REZUMAT FACUT
