@@ -388,6 +388,98 @@ In order to validate their metrics, Ryder and Thompson performed analysis over a
   \label{fig:cross-correlation}
 \end{figure}
 
+\subsection{Metrics for modularization assessment of Scala and C\# systems - B. Muddu et. al.}
+Basavaraju Muudu et. al. \cite{DBLP:conf/icse/MudduABP13} propose a series of metrics for Scala that target modularity with respect to Functional Programming features like : referential transparency, functional purity, first order functions and also Object Oriented features such as inheritance. They give the following definition for a module: ' A module is a logical collection of related files which can be modified and tested independently. A well modularized system will have low inter-module coupling and high intra-module cohesion. It helps the designers to add new modules easily.'\cite{DBLP:conf/icse/MudduABP13}. As one can see, this definition does not imply an exact rule for discovering  modules, so the system can contain a variable number of modules, depending how one delimits a module. \par
+
+\subsubsection{Module discovery}
+The technique they chose to use for delimiting system modules  was Modularizing by  Inverse-Depth heuristic, which is based of the project's file directory structure; they start at the source root folder and compute for each branch the maximum depth; then starting from the bottom up, they assign a module up to a certain depth; in their study, they use inverse depth of 1 for selecting modules, arguing that these are the closest approximation to actual logical modules. We would like to try other modularization techniques: package based, SBT (Scala Build Tool)  modularization and relate them to our problem: establishing code functional-ness: would a good 'functional-ness' value for our proposed metric lead also to improved modularity?.\par
+
+\subsubsection{Referential trasparency metrics}
+
+\begin{itemize}
+\item Referential Transparency Index (RTI) - referential transparency can be expressed as:  
+
+\begin{center}
+\begin{math}
+  RTI = \frac{ | \{ m \in M / Pure(m) \} | } { | M | }
+\end{math}
+\end{center}
+
+\item Intermodule Referential Transparency Index (IRTI) - measure the proportion of the calls in a certain module to methods in other modules which are pure over all the intermodule calls
+
+\begin{center}
+$ IRTI(p) = \frac {\sum_{m \in M(p)} \sum_{m' \in  {M - M(p)}} NC(m,m') \times Pure(m')} {\sum_{m \in M(p)} \sum_{m' \in {M - M(p)}} NC(m,m')} $
+\end{center}
+
+For the entire system: 
+
+\begin{center}
+$ {IRTI(S) = \frac {1} {|\varrho|} \sum_{p \in \varrho} IRTI(p)} $ 
+\end{center}
+\end{itemize}
+
+\subsubsection{First order function metrics}
+\begin{itemize}
+\item Intermodule First Order Index 1 ($IFOI_1$) - determines the proportion of the methods in a certain module which make first order function calls to methods in another module
+
+\begin{center}
+  $IFOI_1 (p) = 1 - \frac {|\{m \in M(p) \mid \exists_{m' \in M} FOC(m,m') \and Mod(m') \neq p \}|} {|\{m \in M(p) \mid \exists_{m' \in M} FOC(m,m')\}|} $ 
+\end{center}
+
+\item Intermodule First Order Index 2 ($IFOI_2$) measures the proportion of out-side first-order-calls used by the current module
+
+\begin{center}
+  $IFOI_2 (p) = 1 - \frac { | \{m' \in M \mid \exists_{m \in M} FOC(m,m') \and Mod(m') \neq p \} | } { |\{ m \in \{ M - M(p) \} \exists_{m' \in M} FOC(m,m')   \}| }$
+\end{center}
+
+\item Intermodule First Order Index 3 ($IFOI3$) - measures the proportion of the other modules whose methods are called upon in a first order way by current module’s methods
+
+\begin{center}
+  $IFOI_3 (p) = 1 - \frac {| \{ p' \in \varrho \mid \exists_{m' \in M(p')} FOC(m,m') \and p' \neq p  \}|} {|\varrho| - 1} $
+\end{center}
+
+\item Intermodule First Order Index (IFOI)
+\begin{center}
+  $IFOI(p) = min(IFOI_1,IFOI_2,IFOI_3)  $ \\ 
+  $IFOI(S) = \frac {1} {\varrho} \sum_{p \in \varrho} IFOI(p)$
+\end{center}
+
+\item Pure First Order Function Index (PFOI) - measures the proportion of all the first order calls which are to pure methods
+
+\begin{center}
+  $PFOI  = \frac { \sum_{m \in M} \sum_{m' \in M} NFOC(m,m') \times Pure(m') } { \sum_{m \in M} \sum_{m' \in M} NFOC(m,m') } $
+\end{center}
+
+\item Intermodule Pure First Order Function Index (IPFOI) - the ratio between the first order calls to pure methods residing in another module over all the first order calls done
+\begin{center}
+  $IPFOI(p) = \frac { \sum_{m \in M(p)} \sum_{m' \in \{M-M(p) \}} NFOC(m,m') \times Pure(m') } { \sum_{m \in M(p)} \sum_{m' \in \{M - M(p)\}} NFOC(m,m') } $ 
+\end{center}
+
+System wide:
+
+\begin{center}
+$IPFOI(S) = \frac 1 {|\varrho|} \sum_{ p \in \varrho } IPFOI(p)  $
+\end{center}
+
+\item 
+\end{itemize}
+
+
+
+Where  M - set of all functions/methods of the software and  Pure(m) - predicate that says if a function is pure or not. In this case, a value close to 1 corresponds to improved referential transparency while one close to 0 says that the property is not satisfied at all. \par
+
+
+
+
+
+
+\subsection {Combining Functional and Imperative Programming for Multicore Software: An Empirical Study Evaluating Scala and Java}
+Pankratius et. al. performed a comparison study on Scala and Java's parallel programming features and performance \cite{Pankratius_combiningfunctional}. Their study shows that writing Scala code results in fewer lines of code than in Java and it preserves the application performance overall. One problem they notice is that Scala's support for parallelism is not as good as Java's. On top of that, Scala seems to require more debugging in testing effort which is quite problematic. One would expect that functional code should lead to fewer, easy to test lines of code. \par
+
+An interesting point in their conclusion is that the top software developers participating in their study wrote a hybrid program, half functional and half imperative. So what would be the right balance between FP and imperative for a 'good Scala program'? \par
+
+val, list, map, filter, flatmap, foreach, ::: (list concatenation), :: (list cons operator) indicate a functional style. We count the occurrences of all such constructs in each project and calculate the percentage of how many belong to the imperative class and how many belong to the functional class. Figure 6 summarizes the results of this analysis for each subject in the study. \cite{Pankratius_combiningfunctional}
+
 \newpage
 \subsection{ Bullshit}
 
@@ -397,26 +489,6 @@ The biggest problem with code metrics is not the definition of new ones but the 
 
 Given previous papers on measuring programs written in functional languages, we would like first to find means to measure (if possible) all functional properties described in the previous chapter and try to relate them to both code quality and possible refactorings; it would be nice to study if some object-oriented structres could be restructred to FP patterns. Huiqing Li propose a refactoring tool for functional programms written in Haskell\cite{Li:2003:TSR:871895.871899}; starting from here, we can imagine corelating our metrics with possible refactorings suggestions, of course, this goal is rather ambitious but it's worth a little more study on the matter.
 
-\subsection {Combining Functional and Imperative Programming for Multicore Software: An Empirical Study Evaluating Scala and Java}
-Pankratius et. al. performed a comparison study on Scala and Java's parallel programming features and performance \cite{Pankratius_combiningfunctional}. Their study shows that writing Scala code results in fewer lines of code than in Java and it preserves the application performance overall. One problem they notice is that Scala's support for parallelism is not as good as Java's. On top of that, Scala seems to require more debugging in testing effort which is quite problematic. One would expect that functional code should lead to fewer, easy to test lines of code. \par
-
-An interesting point in their conclusion is that the top software developers participating in their study wrote a hybrid program, half functional and half imperative. So what would be the right balance between FP and imperative for a 'good Scala program'? \par
-
-val, list, map, filter, flatmap, foreach, ::: (list concatenation), :: (list cons operator) indicate a functional style. We count the occurrences of all such constructs in each project and calculate the percentage of how many belong to the imperative class and how many belong to the functional class. Figure 6 summarizes the results of this analysis for each subject in the study. \cite{Pankratius_combiningfunctional}
-
-\subsection{ Metrics for modularization assessment of Scala and C{\#} systems }
-Basavaraju Muudu et. al. \cite{DBLP:conf/icse/MudduABP13} propose a series of metrics for Scala that target modularity with respect to Functional Programming features like : referential transparency, functional purity, first order functions and also Object Oriented features such as inheritance. They give the following definition for a module: ' A module is a logical collection of related files which can be modified and tested independently. A well modularized system will have low inter-module coupling and high intra-module cohesion. It helps the designers to add new modules easily.'\cite{DBLP:conf/icse/MudduABP13}. As one can see, this definition does not imply an exact rule for discovering  modules, so the system can contain a variable number of modules, depending how one delimits a module. \par
-
-The technique they chose to use for delimiting system modules  was Modularizing by  Inverse-Depth heuristic, which is based of the project's file directory structure; they start at the source root folder and compute for each branch the maximum depth; then starting from the bottom up, they assign a module up to a certain depth; in their study, they use inverse depth of 1 for selecting modules, arguing that these are the closest approximation to actual logical modules. We would like to try other modularization techniques: package based, SBT (Scala Build Tool)  modularization and relate them to our problem: establishing code functional-ness: would a good 'functional-ness' value for our proposed metric lead also to improved modularity?.\par
-
-The metrics for referential transparency - function purity can be easily taken out of the modularity context and be expressed in a general manner, at the level of the whole software system; then a simple description for referential transparency would be expressed as:  \par
-\begin{center}
-\begin{math}
-  RTI = \frac{ | \{ m \in M / Pure(m) \} | } { | M | }
-\end{math}
-\end{center}
-
-Where  M - set of all functions/methods of the software and  Pure(m) - predicate that says if a function is pure or not. In this case, a value close to 1 corresponds to improved referential transparency while one close to 0 says that the property is not satisfied at all. \par
 
 \subsection {Coordinator guidance}
 
