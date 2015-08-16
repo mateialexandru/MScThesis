@@ -159,21 +159,11 @@ val z = f(3)
 Pure functions evaluate to the same result given the same argument value(s) and  don't have any side effects. A definition combining both concepts can be found in 'Functional Programming in Scala' by Chiusano and Bjarnason : 'A function f is pure if expression f(x) is referentially transparent for all referentially transparent values x'.\par
 Examples of pure functions in Scala include:
 \begin{itemize}
-
  \item Methods on immutable collections such as map, drop, filter, take
  \item Methods like split, length on the String class
  \item Mathematical functions such as add, multiply \ldots
 \end{itemize}
 As a rule of thumb in Scala if a function has return type Unit, then most probably it has side effects and it is not pure. \par
-
-A measure for the degree of referential transparency in a program can be expressed as:  \par
-\begin{center}
-\begin{math}
-  RTI = \frac{ | \{ m \in M / Pure(m) \} | } { | M | }
-\end{math}
-\end{center}
-
-Where RTI- Referential Transparency Index ,  M - set of all functions/methods of the software and  Pure(m) - predicate that says if a function is pure or not. In this case, a value close to 1 corresponds to improved referential transparency while one close to 0 says that the property is not satisfied at all. \cite{DBLP:conf/icse/MudduABP13}. Further study is needed on elaborating how the pure function should be defined. \par
 
 \subsection {High-order functions}
 The central concept of functional languages as pointed out by John Hughes \cite{DBLP:journals/cj/Hughes89} in 'Why Functional Programming Matters' is higher- order functions ; Hughes argues that when high order functions are combined with laziness techniques they greatly increase the modularity of software by providing novative ways (compared to other structured programming techniques) of 'gluing' modules together so programs can become more concise and easier to reason about. 
@@ -510,6 +500,22 @@ The second step will be to implement a plugin in one of the main technologies us
 The third step will be to apply our plugin against a substantially large codebase and evaluate its effectiveness in detecting code flaws and ``bad smells''. Our theoretical model should be complete enough to give reasons and refactoring suggestions for these when we detect them.
 
 
+
+\iffalse
+\subsubsection {References}
+
+O teza mai veche despre metrici in Haskell
+        $https://kar.kent.ac.uk/14117/1/SOFTWARE_MEASUREMENT_FOR.pdf$
+O analiza pentru proiecte in C\#/F\#: complexitate ciclomatica, dependente
+        http://fsharpforfunandprofit.com/posts/cycles-and-modularity-in-the-wild/
+(eu l-am putut accesa doar via archive.org). Vezi si ulterior
+        http://evelinag.com/blog/2014/06-09-comparing-dependency-networks/
+
+O discutie despre posibile metrici intr-un limbaj declarativ
+        https://sdqweb.ipd.kit.edu/publications/pdfs/kapova2010b.pdf
+
+Ryder \& Thompson'07: Software Metrics: Measuring Haskell https://kar.kent.ac.uk/14265/1/tfp-2005-paperFinal.pdf
+
 \subsection {Coordinator guidance}
 
 \subsubsection {Problem definition}
@@ -556,11 +562,8 @@ Dar ce sunt 'pattern-related metrics'? Si de ce ar fi aplicabile
 mai mult la Haskell ? Cititorul afla foarte putin de aici, ramane mai
 mult cu o intrebare.
 
-Discutia mai detaliata o ai despre Muddu et al., dar tu descrii mai
-mult structura pe module decat metrici (singura metrica e cea din 3.2).
 
 
-Pe de alta parte, am avut discutii repetate pe mail, tu mi-ai facut
 un rezumat al lui Harrison et al., eu ti-am facut rezumatul meu, etc.
 Unde se regasesc astea ?
 
@@ -573,16 +576,6 @@ however, that study reports similar results to ours that subjects
 need more effort to test functional code as opposed to imperative code."
 
 
-
-
-Deci, nu vreau sa te imping la un perfectionism exagerat, inteleg ca
-ai probabil multe de facut, am auzit de la un student zvonuri ca se
-poate preda studiul si la toamna (nu o sa cercetez sau comentez),
-pe scurt: ce ai scris imi spune din pacate foarte putin ca studiu
-bibliografic; ori acesta e scopul sau.
-
-
-nu cred ca e extraordinar de mult de scris.
 E bine ca ai clasificat metricile, cred ca se mai poate imbunatati,
 de exemplu erau flowgraph metrics sau metricile de tip functional
 (ref. transparency etc.) definite de Muddu et al.
@@ -604,48 +597,13 @@ daca prezinta interes, tehnica, metodologia etc.
 Obs: As folosi mai degraba metrici legate de (procesul de) dezvoltare vs.
 metrici de cod decat proces/produs, pare mai clar.
 
-Ce as retine:
-- metrici utile: numar de functii apelate / de biblioteca, raportul
-dintre ele; numarul de functii definite; adancimea ierarhiei de functii
-(poate si celelalte)
-- diferenta in raportul L/N*
-Secundar (nefiind obiectivul tau): metrici de eroare (erori / SLOC);
-discutabil (depinde de mediu, si studiul e vechi: timpul de testare);
-suprinzator: erori de interfata ???
 
 Pentru concluzia "alegere in functie de gust" nu e nevoie de articole.
 Partea cu numarul de modificari nu o remarcasem.
 
-Ce as cauta rapid: daca exista elemente suplimentare/clarificari in [1]:
-"The results of these preparatory studies have been reported in detail
-[l, 2]".
 
-Observatii: raritatea referintelor e un element potential problematic.
-Practic, ai 2 (grupuri de) articole de acum 20 de ani (van den Berg si
-Harrison), unul de acum 10 ani (Ryder et al), si putin recent (Muddu,
-Kiraly). O explicatie logica e ca FP e inca insuficient de larg folosita,
-iar cercetarea in metrici e puternic determinata de practica.
-Pe de alta parte e bine ca Meijer a propus asta ca o tema de master.
+\fi
 
-
-\subsubsection {References}
-
-O teza mai veche despre metrici in Haskell
-        $https://kar.kent.ac.uk/14117/1/SOFTWARE_MEASUREMENT_FOR.pdf$
-O analiza pentru proiecte in C\#/F\#: complexitate ciclomatica, dependente
-        http://fsharpforfunandprofit.com/posts/cycles-and-modularity-in-the-wild/
-(eu l-am putut accesa doar via archive.org). Vezi si ulterior
-        http://evelinag.com/blog/2014/06-09-comparing-dependency-networks/
-
-O discutie despre posibile metrici intr-un limbaj declarativ
-        https://sdqweb.ipd.kit.edu/publications/pdfs/kapova2010b.pdf
-
-Ryder \& Thompson'07: Software Metrics: Measuring Haskell https://kar.kent.ac.uk/14265/1/tfp-2005-paperFinal.pdf
-
-
-
-
-\newpage
 
 
 \bibliography{citation} 
@@ -658,3 +616,4 @@ Ryder \& Thompson'07: Software Metrics: Measuring Haskell https://kar.kent.ac.uk
 %Map-reduce, -> [cite needed]
 %Tools -articles 
 %Cite for functional properties
+
