@@ -389,10 +389,20 @@ In order to validate their metrics, Ryder and Thompson performed analysis over a
 \end{figure}
 
 \subsection{Metrics for modularization assessment of Scala and C\# systems - B. Muddu et. al.}
-Basavaraju Muudu et. al. \cite{DBLP:conf/icse/MudduABP13} propose a series of metrics for Scala that target modularity with respect to Functional Programming features like : referential transparency, functional purity, first order functions and also Object Oriented features such as inheritance. They give the following definition for a module: ' A module is a logical collection of related files which can be modified and tested independently. A well modularized system will have low inter-module coupling and high intra-module cohesion. It helps the designers to add new modules easily.'\cite{DBLP:conf/icse/MudduABP13}. As one can see, this definition does not imply an exact rule for discovering  modules, so the system can contain a variable number of modules, depending how one delimits a module. \par
+Basavaraju Muudu et. al. \cite{DBLP:conf/icse/MudduABP13} propose a series of metrics for Scala that target modularity with respect to Functional Programming features like : referential transparency, functional purity, first order functions and also Object Oriented features such as inheritance.
 
-\subsubsection{Module discovery}
-The technique they chose to use for delimiting system modules  was Modularizing by  Inverse-Depth heuristic, which is based of the project's file directory structure; they start at the source root folder and compute for each branch the maximum depth; then starting from the bottom up, they assign a module up to a certain depth; in their study, they use inverse depth of 1 for selecting modules, arguing that these are the closest approximation to actual logical modules. We would like to try other modularization techniques: package based, SBT (Scala Build Tool)  modularization and relate them to our problem: establishing code functional-ness: would a good 'functional-ness' value for our proposed metric lead also to improved modularity?.\par
+
+\subsubsection{Notation}
+
+\begin{itemize}
+\item S represents the software system, which consists of a series of modules $\varrho= \{ p_1,p_2,..,p_N \}$ and where $p_i$ is a system module, $1<=i<=N$
+\item C - the set of all classes in the system S, C(p) -> the subset of all the classes containde in module p
+\item M - the set of all methods/functions in the system S; M(c) is the subset of methods defined in class $c \in C$ and M(p) - the subset of functions defined in module $p \in \varrho$
+\item NC(m1,m2) - number of calls from m2 to m1
+\item FOC(m1,m2) - true if m2 is used as a parameter in a function call within m1; NFOC(m1,m2) counts the number of such calls
+\item InUse(m) - true if a method is called during program execution 
+\item Pure(m) - true(1) if m is a pure function
+\end{itemize}
 
 \subsubsection{Referential trasparency metrics}
 
@@ -461,33 +471,43 @@ System wide:
 $IPFOI(S) = \frac 1 {|\varrho|} \sum_{ p \in \varrho } IPFOI(p)  $
 \end{center}
 
-\item 
 \end{itemize}
 
 
-
-Where  M - set of all functions/methods of the software and  Pure(m) - predicate that says if a function is pure or not. In this case, a value close to 1 corresponds to improved referential transparency while one close to 0 says that the property is not satisfied at all. \par
-
-
-
-
-
+\subsubsection{Module discovery}
+They give the following definition for a module: ' A module is a logical collection of related files which can be modified and tested independently. A well modularized system will have low inter-module coupling and high intra-module cohesion. It helps the designers to add new modules easily.'\cite{DBLP:conf/icse/MudduABP13}. As one can see, this definition does not imply an exact rule for discovering  modules, so the system can contain a variable number of modules, depending how one delimits a module. \par
+The technique they chose to use for delimiting system modules  was Modularizing by  Inverse-Depth heuristic, which is based of the project's file directory structure; they start at the source root folder and compute for each branch the maximum depth; then starting from the bottom up, they assign a module up to a certain depth; in their study, they use inverse depth of 1 for selecting modules, arguing that these are the closest approximation to actual logical modules. We would like to try other modularization techniques: package based, SBT (Scala Build Tool)  modularization and relate them to our problem: establishing code functional-ness: would a good 'functional-ness' value for our proposed metric lead also to improved modularity?.\par
+The authors also suggest a metric that penalizes the coupling of multiple modules through inheritence and trait implementation. We should try working with penalization metrics, that count either the presence of absence of a feature in the source code.
 
 \subsection {Combining Functional and Imperative Programming for Multicore Software: An Empirical Study Evaluating Scala and Java}
 Pankratius et. al. performed a comparison study on Scala and Java's parallel programming features and performance \cite{Pankratius_combiningfunctional}. Their study shows that writing Scala code results in fewer lines of code than in Java and it preserves the application performance overall. One problem they notice is that Scala's support for parallelism is not as good as Java's. On top of that, Scala seems to require more debugging in testing effort which is quite problematic. One would expect that functional code should lead to fewer, easy to test lines of code. \par
 
 An interesting point in their conclusion is that the top software developers participating in their study wrote a hybrid program, half functional and half imperative. So what would be the right balance between FP and imperative for a 'good Scala program'? \par
 
-val, list, map, filter, flatmap, foreach, ::: (list concatenation), :: (list cons operator) indicate a functional style. We count the occurrences of all such constructs in each project and calculate the percentage of how many belong to the imperative class and how many belong to the functional class. Figure 6 summarizes the results of this analysis for each subject in the study. \cite{Pankratius_combiningfunctional}
+In order to make a distinction between functional and imperative programming, the authors classifed key language constructs in imperative ones: var, object, array, while, for,
+abstract, import java and into functional ones: val, list, map,filter, flatmap, foreach, ::: (list concatenation),:: (list cons operator). That way they could asses how much of the code uses functional keywords and much is imperative.  Of course this measurement is a basic one but it is a good place to start from in our pursuit of code functional-ness.
 
-\newpage
-\subsection{ Bullshit}
-
-In oder to study the maintability, Basavaraju Muddu et. al. introduce a technique for breaking software into logical modules \cite{DBLP:conf/icse/MudduABP13} The technique they chose was Modularizing by  Inverse-Depth heuristic, which is based of the project's file directory structure; they start at the source root folder and compute for each branch the maximum depth; then starting from the bottom up, they assign a module up to a certain depth; in their study, they use inverse depth of 1 for selecting modules, arguing that these are the closest approximation to actual logical modules. We would like to try other modularization techniques: package based, SBT (Scala Build Tool)  modularization and relate them to our problem: establishing code functional-ness: would a good 'functional-ness' value for our proposed metric lead also to improved modularity?.\par
+\subsection{ Literature conclusion}
 
 The biggest problem with code metrics is not the definition of new ones but the extraction of  meaningful information from them;code metrics without semantics attached to them are just plain numbers; we need to corelate them to some process development metrics and this is the hardest part, since process activities are difficult to cuantify; most of the research in FP metrics is targeting maintanability, code quality. We would like to see how functional property metrics impact refactorings; is there a way to detect 'functional code smells'?.  \par
 
 Given previous papers on measuring programs written in functional languages, we would like first to find means to measure (if possible) all functional properties described in the previous chapter and try to relate them to both code quality and possible refactorings; it would be nice to study if some object-oriented structres could be restructred to FP patterns. Huiqing Li propose a refactoring tool for functional programms written in Haskell\cite{Li:2003:TSR:871895.871899}; starting from here, we can imagine corelating our metrics with possible refactorings suggestions, of course, this goal is rather ambitious but it's worth a little more study on the matter.
+
+\subsection {Static analysis tools for Scala}
+There are already a couple of static analysis tools written for Scala : ScalaStyle, ScapeGoat, Wart remover, Linger and Scala Abide. These tools are looking possible errors that might appear in Scala code and also checks for a certain style of coding. Some of the checks they perform are: identation, illegal imports, multiple declared strings, null appearances, redundant if statements, cyclomatic complexity, unreachable catch statements, unexpected recursive definitions, unassigned variables, shadowing etc. \par
+
+Some metrics that could turn out to be useful for our study are  the presence, absence of vars and cyclomatic complexity; ScalaStyle checks that classes and objects do not define mutable fields and that functions do not define mutable variables (VarFieldChecker, VarLocalChecker) \cite{scalastyle} and it also has a metric for cyclomatic complexity. At least from an implementation perspective it would be worthwhile to take them into account.\par
+
+\section{Conclusions and Future work}
+In this paper we've looked at the main characteristics defining functional code and discussed the existing body of work regarding metrics inside functional languages. The state-of-the-art leaves a lot of room for new investigation to detect flaws. This is will be the main purpose of our research.
+
+The leading question of this work as presented in  section 1  is  'How can we determine the degree of code "functional-ness" '? What code patterns can we define as not being functional, how can we detect them and what can we do about them? \par
+
+In most practical situations we cannot give binary answers on the functional-ness of a codebase. Instead we will make use of metrics to quantify this aspect. The first step will be to conduct a study on which functional elements can be measured and which not. We will need to establish the granularity of what we want to investigate: intra-method level, inter-method, class-level. Afterwards, we will design a series of metrics to measure functional properties of the program. \par
+
+The second step will be to implement a plugin in one of the main technologies used in the Scala ecosystem to make these measurements.\par
+
+The third step will be to apply our plugin against a substantially large codebase and evaluate its effectiveness in detecting code flaws and ``bad smells''. Our theoretical model should be complete enough to give reasons and refactoring suggestions for these when we detect them.
 
 
 \subsection {Coordinator guidance}
@@ -526,8 +546,6 @@ incepe in sec. 4 si hai sa vedem ce aflam (exceptie: aflam in 3.2 ca
 - Harrison: code modularity in SML
 - Ryder: metrics for Haskell
 - Muddu: metrics for Scala
-Dar NU aflam nici concret ce metrici se folosesc, nici ce concluzii
-s-au tras pe baza lor.
 
 Apoi vine clasificarea (apropos, ce am scris in mail despre flow-graph
 si functional-related tu ai scos din context si interpretat altfel:
@@ -541,30 +559,11 @@ mult cu o intrebare.
 Discutia mai detaliata o ai despre Muddu et al., dar tu descrii mai
 mult structura pe module decat metrici (singura metrica e cea din 3.2).
 
-Si aici se cam termina studiul bibliografic (mai aflam ca Li a
-refactorizat ceva Haskell, dar nu ce si cum).
-
-Facand rezumatul rezumatului, esenta e:
-- o enumerare de metrici (cele 4 buline), fara a *defini* de fapt
-concret aproape nicicare din ele (exceptie: RTI in 3.2)
-- trei limbaje pe care altii le-au analizat (Miranda, Haskell, Scala),
-in doua din cazuri, legat de modularizare.
-
-Daca incerc sa *inteleg*, analizand lista de metrici, constat ca
-ultimele 3 din 4 buline nu sunt specific functionale, si despre prima
-bulina, nu aflu nimic; sunt insa si metrici functionale (enumerarea
-dinainte, dar nu e clar cum le definesc -- de exemplu, in 3.2 spui
-"Further study is needed on elaborating how the pure function should be
-dened." desi aparent inainte ai citat o definitie clara (deci nu mi-e
-clar ce e clar si ce nu e clar si de ce).
 
 Pe de alta parte, am avut discutii repetate pe mail, tu mi-ai facut
 un rezumat al lui Harrison et al., eu ti-am facut rezumatul meu, etc.
 Unde se regasesc astea ?
 
-Am *citit* in mare toate articolele pe care ti le-am recomandat, si
-am *retinut* niste informatii, unele interesante, chiar daca nu toate
-strict legate de intentia ta, dar totusi relevante. Insa in studiul
 tau gasesc foarte putin care sa ma faca sa *aflu* si sa *inteleg*
 ce au facut altii. Uite, Pankratius et al (ICSE'12) scrie:
 "The study of [Harrison et al.] on SML versus C++ done 15 years ago
@@ -574,17 +573,7 @@ however, that study reports similar results to ours that subjects
 need more effort to test functional code as opposed to imperative code."
 
 
-E o fraza, dar aflu o informatie utila despre ce au concluzionat altii.
-Desigur, e relevanta pentru studiul lor (legat de programatori), si
-nu pentru tine, dar e un exemplu despre cum un articol (care NU e un
-studiu bibliografic!) ma invata totusi, intr-un rand, despre alt articol.
 
-Sunt dezamagit si pentru ca am petrecut destul de mult timp cautand,
-citind (a fost placut si instructiv) dar si scriind mesaje, timp in care
-poate as fi putut sa imi fac sinteze pe alta tema pe care as putea poate
-sa si public. Iar primul care spune 'am lucrat destul' esti tot tu.
-Ar mai fi de comentat la concluzii, dar nu ma prea simt motivat
-in acest context.
 
 Deci, nu vreau sa te imping la un perfectionism exagerat, inteleg ca
 ai probabil multe de facut, am auzit de la un student zvonuri ca se
@@ -592,13 +581,6 @@ poate preda studiul si la toamna (nu o sa cercetez sau comentez),
 pe scurt: ce ai scris imi spune din pacate foarte putin ca studiu
 bibliografic; ori acesta e scopul sau.
 
-cele bune,
-
-Marius
-
-
-
-Salut,
 
 nu cred ca e extraordinar de mult de scris.
 E bine ca ai clasificat metricile, cred ca se mai poate imbunatati,
@@ -611,12 +593,6 @@ incipient (poate e mai mult in teza, desi articolul e ulterior).
 van den Berg \& Broek vor tot ceva similar, dar par ca discuta in alte
 articole. Harrison compara FP vs. OO, Pankratius discuta experienta
 programatorilor, Muddu et al analizeaza modularitatea.
-
-Tu vrei sa vezi cat de functional e codul, dar trebuie sa te hotarasti
-ce sa faci cu informatia asta, mai ales ca Scala fiind un limbaj hibrid,
-(destul de) rar se programeaza complet functional in el.
-…
-
 
 
 
@@ -651,17 +627,6 @@ Kiraly). O explicatie logica e ca FP e inca insuficient de larg folosita,
 iar cercetarea in metrici e puternic determinata de practica.
 Pe de alta parte e bine ca Meijer a propus asta ca o tema de master.
 
-Insa trebuie sa-ti pui problema ca metricile (si in general orice numere)
-nu au impact ca atare, ci doar daca sunt utile la ceva. E usor sa scrii
-articole in care sa *constati* ca ceva numere sunt diferite, si ceva de
-constatat se gaseste intotdeauna (asa sunt evaluarile experimentale
-superficiale). Ceva mai bine e daca poti sa *explici* numerele gasite
-(aici iar e pericolul de a enunta niste teorii/pareri nefondate).
-Realmente util e daca pe baza numerelor poti face ceva (la metrici:
-defecte de proiectare, refactorizare, focus pe testare, etc.)
-
-Deci probabil merita de explorat domeniul 'refactoring (to) functional'
-pentru a face corelari / a gasi puncte de impact.
 
 \subsubsection {References}
 
@@ -677,60 +642,6 @@ O discutie despre posibile metrici intr-un limbaj declarativ
 
 Ryder \& Thompson'07: Software Metrics: Measuring Haskell https://kar.kent.ac.uk/14265/1/tfp-2005-paperFinal.pdf
 
-----------------------------------------------------------------------------
-Muddu et al. '13: Metrics for modularization assessment of Scala and C\# systems
-(daca nu ai acces via UPT la IEEEXplore ti-l trimit).
-
-CITIT -> Facut rezumat despre modularizare dar nu si despre metrici
-REZUMAT FACUT despre toate metricile
----------------------------------------------------------------------------
-Tot pe linia de comparare OO - FP, grupul lui Harrison citat de
-Berg \& Broek are un raport tehnic in care printre altele discuta
-si ceva metrici:
-        http://cct.brookes.ac.uk/staff/resources/rachelharrison/report3-Harrison-95.pdf
-
-CITIT -> Concluzie legata de refolosirea codului SML vs C++ : nici o alta diferenta in rest        
-REZUMAT FACUT
------------------------------------------------------------------------------
-Mai ai de exemplu si studiul asta
-        http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.261.3185
-care se axeaza pe programatori dar discuta tangential si caracteristici
-functionale/imperative de cod si folosirea lor.
-M-ar bucura sa aud ca ai cautat activ si ai mai gasit si tu ceva relevant.
-
-
-REZUMAT FACUT
-------------------------------------------------------------------------------
-
-Cum ziceam, cauta pe Google Scholar sa vezi cine a mai citat pe
-Ryder respectiv van den Berg (nu sunt multe). Vineri gasisem niste
-articole din 2010 de la Budapesta care nu m-au atras pe moment,
-dar uite o sinteza din 2013
-        $http://ami.ektf.hu/uploads/papers/finalpdf/AMI_42_from29to44.pdf$
-si teza de doctorat a autorului
-$        http://www.tnkcs.inf.elte.hu/vedes/Kiraly_Roland_Tezisek_en.pdf$
-Deasemenea cred ca merita sa mai cauti prin articolele de refactorizare
-functionala (chiar daca nu o sa faci asta) pentru ca refactorizarea
-se face cu un scop, de a imbunatati anumite caracteristici (masurabile),
-deci implicit sunt gandite pornind de la o metrica.
-
-CITIT
-------------------------------------------------------------------------------
-\subsection {Static analysis tools for Scala}
-There are already a couple of static analysis tools written for Scala : ScalaStyle, ScapeGoat, Wart remover, Linger and Scala Abide. These tools are looking possible errors that might appear in Scala code and also checks for a certain style of coding. Some of the checks they perform are: identation, illegal imports, multiple declared strings, null appearances, redundant if statements, cyclomatic complexity, unreachable catch statements, unexpected recursive definitions, unassigned variables, shadowing etc. \par
-
-Some metrics that could turn out to be useful for our study are  the presence, absence of vars and cyclomatic complexity; ScalaStyle checks that classes and objects do not define mutable fields and that functions do not define mutable variables (VarFieldChecker, VarLocalChecker) \cite{scalastyle} and it also has a metric for cyclomatic complexity. At least from an implementation perspective it would be worthwhile to take them into account.\par
-
-\section{Conclusions and Future work}
-In this paper we've looked at the main characteristics defining functional code and discussed the existing body of work regarding metrics inside functional languages. The state-of-the-art leaves a lot of room for new investigation to detect flaws. This is will be the main purpose of our research.
-
-The leading question of this work as presented in  section 1  is  'How can we determine the degree of code "functional-ness" '? What code patterns can we define as not being functional, how can we detect them and what can we do about them? \par
-
-In most practical situations we cannot give binary answers on the functional-ness of a codebase. Instead we will make use of metrics to quantify this aspect. The first step will be to conduct a study on which functional elements can be measured and which not. We will need to establish the granularity of what we want to investigate: intra-method level, inter-method, class-level. Afterwards, we will design a series of metrics to measure functional properties of the program. \par
-
-The second step will be to implement a plugin in one of the main technologies used in the Scala ecosystem to make these measurements.\par
-
-The third step will be to apply our plugin against a substantially large codebase and evaluate its effectiveness in detecting code flaws and ``bad smells''. Our theoretical model should be complete enough to give reasons and refactoring suggestions for these when we detect them.
 
 
 
