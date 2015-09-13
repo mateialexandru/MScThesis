@@ -4,6 +4,7 @@
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{epigraph}
 
 \definecolor{mygreen}{rgb}{0,0.6,0} 
 \definecolor{mygray}{rgb}{0.5,0.5,0.5} 
@@ -477,16 +478,11 @@ An interesting point in their conclusion is that the top software developers par
 In order to make a distinction between functional and imperative programming, the authors classifed key language constructs in imperative ones: var, object, array, while, for,
 abstract, import java and into functional ones: val, list, map,filter, flatmap, foreach, ::: (list concatenation),:: (list cons operator). That way they could asses how much of the code uses functional keywords and much is imperative.  Of course this measurement is a basic one but it is a good place to start from in our pursuit of code functional-ness.
 
-\subsection{ Literature conclusion}
-
-The biggest problem with code metrics is not the definition of new ones but the extraction of  meaningful information from them;code metrics without semantics attached to them are just plain numbers; we need to corelate them to some process development metrics and this is the hardest part, since process activities are difficult to cuantify; most of the research in FP metrics is targeting maintanability, code quality. We would like to see how functional property metrics impact refactorings; is there a way to detect 'functional code smells'?.  \par
-
-Given previous papers on measuring programs written in functional languages, we would like first to find means to measure (if possible) all functional properties described in the previous chapter and try to relate them to both code quality and possible refactorings; it would be nice to study if some object-oriented structres could be restructred to FP patterns. Huiqing Li propose a refactoring tool for functional programms written in Haskell\cite{Li:2003:TSR:871895.871899}; starting from here, we can imagine corelating our metrics with possible refactorings suggestions, of course, this goal is rather ambitious but it's worth a little more study on the matter.
-
 \subsection {Static analysis tools for Scala}
 There are already a couple of static analysis tools written for Scala : ScalaStyle, ScapeGoat, Wart remover, Linger and Scala Abide. These tools are looking possible errors that might appear in Scala code and also checks for a certain style of coding. Some of the checks they perform are: identation, illegal imports, multiple declared strings, null appearances, redundant if statements, cyclomatic complexity, unreachable catch statements, unexpected recursive definitions, unassigned variables, shadowing etc. \par
 
 Some metrics that could turn out to be useful for our study are  the presence, absence of vars and cyclomatic complexity; ScalaStyle checks that classes and objects do not define mutable fields and that functions do not define mutable variables (VarFieldChecker, VarLocalChecker) \cite{scalastyle} and it also has a metric for cyclomatic complexity. At least from an implementation perspective it would be worthwhile to take them into account.\par
+
 
 \section{Conclusions and Future work}
 In this paper we've looked at the main characteristics defining functional code and discussed the existing body of work regarding metrics inside functional languages. The state-of-the-art leaves a lot of room for new investigation to detect flaws. This is will be the main purpose of our research.
@@ -500,120 +496,10 @@ The second step will be to implement a plugin in one of the main technologies us
 The third step will be to apply our plugin against a substantially large codebase and evaluate its effectiveness in detecting code flaws and ``bad smells''. Our theoretical model should be complete enough to give reasons and refactoring suggestions for these when we detect them.
 
 
-
-\iffalse
-\subsubsection {References}
-
-O teza mai veche despre metrici in Haskell
-        $https://kar.kent.ac.uk/14117/1/SOFTWARE_MEASUREMENT_FOR.pdf$
-O analiza pentru proiecte in C\#/F\#: complexitate ciclomatica, dependente
-        http://fsharpforfunandprofit.com/posts/cycles-and-modularity-in-the-wild/
-(eu l-am putut accesa doar via archive.org). Vezi si ulterior
-        http://evelinag.com/blog/2014/06-09-comparing-dependency-networks/
-
-O discutie despre posibile metrici intr-un limbaj declarativ
-        https://sdqweb.ipd.kit.edu/publications/pdfs/kapova2010b.pdf
-
-Ryder \& Thompson'07: Software Metrics: Measuring Haskell https://kar.kent.ac.uk/14265/1/tfp-2005-paperFinal.pdf
-
-\subsection {Coordinator guidance}
-
-\subsubsection {Problem definition}
-Cum ziceam, intrebarea cheie e la ce folosesti aceste metrici.
-
-Punerea problemei in sec. 2 nu e clar definita/motivata:
-"Scala is a hybrid programming lanaguage [...] there is no mechanism in
-the language that enforces a functional style [...]"
-
-Si atunci, unde, de ce, cat ar trebui sa scrii functional?
-Cand Radu Marinescu a inceput sa lucreze definind metrici pentru a detecta
-probleme de proiectare, acele probleme de proiectare erau in buna parte
-deja definite, dar trebuiau cuantificate si apoi detectate automat.
-
-Care e stilul de cod bun pe care l-ar propune expertul mentionat de tine?
-Cum arata un program bine scris in Scala ca limbaj hibrid?
-Trebuie sa fie perfect functional sau nu?
-Sigur, Meijer enumera cateva caracteristici functionale. Probabil codul
-predominant functional e bun, dar nu inseamna ca acela obiectual e prost
-sau are acele "code flaws" si "bad smells" de care vorbesti in concluzie.
-
-Deci cred ca ar trebui sa te lamuresti (nu in studiul asta) cum arata
-"codul ideal" pe care vrei sa-l masori. Sa si trebuiasca sa il definesti,
-sa validezi prin studii ce e bun si nu, si apoi sa gasesti metrici
-pentru caracterizare/detectie e prea mult.
-
-\subsubsection {General critique}
-
-
-O sa ma refer deci la partea de *studiu bibliografic*, care la tine
-incepe in sec. 4 si hai sa vedem ce aflam (exceptie: aflam in 3.2 ca
-[MABP13] defineste RTI). Deci:
-- vdBerg: code complexity in Miranda
-- Harrison: code modularity in SML
-- Ryder: metrics for Haskell
-- Muddu: metrics for Scala
-
-Apoi vine clasificarea (apropos, ce am scris in mail despre flow-graph
-si functional-related tu ai scos din context si interpretat altfel:
-eu am spus ca asta ar fi in completare la bulinele tale, NU o impartire
-in doua categorii!).
-Ai cele 4 categorii. E bine ca le-ai extras sintetic si nu pe articol.
-Dar ce sunt 'pattern-related metrics'? Si de ce ar fi aplicabile
-mai mult la Haskell ? Cititorul afla foarte putin de aici, ramane mai
-mult cu o intrebare.
-
-
-
-un rezumat al lui Harrison et al., eu ti-am facut rezumatul meu, etc.
-Unde se regasesc astea ?
-
-tau gasesc foarte putin care sa ma faca sa *aflu* si sa *inteleg*
-ce au facut altii. Uite, Pankratius et al (ICSE'12) scrie:
-"The study of [Harrison et al.] on SML versus C++ done 15 years ago
-was not conducted with a multi-paradigm language on multicore and
-unfortunately had implementations that were difficult to compare;
-however, that study reports similar results to ours that subjects
-need more effort to test functional code as opposed to imperative code."
-
-
-E bine ca ai clasificat metricile, cred ca se mai poate imbunatati,
-de exemplu erau flowgraph metrics sau metricile de tip functional
-(ref. transparency etc.) definite de Muddu et al.
-
-Apoi vine intrebarea cheie la ce se folosesc si la ce vrei sa le
-folosesti tu. Ryder vrea sa le coreleze cu erorile, dar e foarte
-incipient (poate e mai mult in teza, desi articolul e ulterior).
-van den Berg \& Broek vor tot ceva similar, dar par ca discuta in alte
-articole. Harrison compara FP vs. OO, Pankratius discuta experienta
-programatorilor, Muddu et al analizeaza modularitatea.
-
-
-
-O ora e normal daca studiezi articolul in detaliu; e mult pe articol,
-pentru ca nu tot ce gasesti e realmente relevant.
-Eu as citi introducere, concluzii, rezultate experimentale, si apoi
-daca prezinta interes, tehnica, metodologia etc.
-
-Obs: As folosi mai degraba metrici legate de (procesul de) dezvoltare vs.
-metrici de cod decat proces/produs, pare mai clar.
-
-
-Pentru concluzia "alegere in functie de gust" nu e nevoie de articole.
-Partea cu numarul de modificari nu o remarcasem.
-
-
-\fi
-
-
+\newpage
 
 \bibliography{citation} 
 \bibliographystyle{alpha}
 
 \end{document}
-
-
-%Futures, actors -> better abstractions [cite needed]
-%Map-reduce, -> [cite needed]
-%Tools -articles 
-%Cite for functional properties
 
