@@ -87,7 +87,7 @@ Scala is one of the leading functional programming languages, over the last coup
 
 \begin{figure}[h!]
   \includegraphics[width=\linewidth]{redmonk-rank.png}
-  \caption{Redmonk rank of programming languages - June, 2015}
+  \caption{RedMonk rank of programming languages - June, 2015}
   \label{fig:redmonk-rank}
 \end{figure}
 
@@ -104,7 +104,7 @@ One of its success factors is  Scala's compatibility with Java Virtual Machine h
 Another reason why functional programming comes in handy nowadays is that multiprocessor architectures become ubiquitous and developers need to get more familiar with distributed and multi-threaded computing. Programming with shared state has proven to be  difficult to reason about and functional programming offers to save a lot of headaches by removing shared state from the equation and providing better concurrency abstractions (Futures, Actors). We should also consider  the exceptional distribution capabilities of map-reduce that functional programming offers. Although the programming paradigm was born more than 80 years ago, functional programming seems like a totally new way of thinking about software to modern day developers, having lots of secret gems left to be discovered. \par
 
 \section {Problem statement}
-Scala is a hybrid programming lanaguage combining both  functional and  object oriented elements \cite{scalalang:1}. Writing Scala code does not imply you are writing functional code;  there is no mechanism in the language that enforces a functional style of programming; so one can say they write code in Scala so they use functional programming when in fact their code base is entirely procedural. I was also put in such a position,  being one of the many  developers that switched from an Object Oriented language(Java /C\#/C++xs etc.)  to Scala. So how can one figure out if his Scala code follows the functional programming principles or not? The classic approach is to ask a functional programming expert for code review, if you are lucky enough to have access to such valuable resources. \par
+Scala is a hybrid programming language combining both  functional and  object oriented elements \cite{scalalang:1}. Writing Scala code does not imply you are writing functional code;  there is no mechanism in the language that enforces a functional style of programming; so one can say they write code in Scala so they use functional programming when in fact their code base is entirely procedural. I was also put in such a position,  being one of the many  developers that switched from an Object Oriented language(Java /C\#/C++ etc.)  to Scala. So how can one figure out if his Scala code follows the functional programming principles or not? The classic approach is to ask a functional programming expert for code review, if you are lucky enough to have access to such valuable resources. \par
 
 The solution we propose is a set of metrics that should be able to quantify to what degree the code is making use of the functional paradigm. But what  qualifies a code as being functional? What are the characteristics of functional code? In the following section we will elaborate the main characteristics of functional programming languages.\par
 
@@ -119,7 +119,7 @@ The question we will try to answer in this body of work is 'how much does a meth
 
 \subsection {Immutability}
 If a variable/object is immutable then its value never changes. That is a useful guarantee if one plans on going concurrent: any such value can be safely shared amongst treads since the value is read-only. Another advantage is the reduced aliasing between different parts of the program; one can say that immutable objects are easier to reason about and also their API is straight forward because you don't need to reason about internal state changes - everything is transparent compared to mutable objects that introduce opaqueness in reasoning about their possible states at different moments of time . \par
-Scala encourages immutability through case classes, which provide a syntatic sugar for creating immutable objects (data structures). Case classes are regular classes which export their constructor parameters and which provide a recursive decomposition mechanism via pattern matching.
+Scala encourages immutability through case classes, which provide a syntactic sugar for creating immutable objects (data structures). Case classes are regular classes which export their constructor parameters and which provide a recursive decomposition mechanism via pattern matching.
 
 \begin{lstlisting} 
 abstract class Pet
@@ -135,19 +135,19 @@ def printPetType(pet:Pet): String= pet match{
 }
 \end{lstlisting}
 
-By default, case classes ar immutable but one can change some of fields to be mutable, although it is not recommended.\par
+By default, case classes are immutable but one can change some of fields to be mutable, although it is not recommended.\par
 
-Declaring a variable as a 'val' prevents it for being reassigned; still, this doesn't guarantee that the object it is reffering to is immutable. Best transparency is obtained with using both val's and immutable objects: this is the recommended approach also when dealing with concurrency. Scala provides both mutable and immutable collections that can be found in packages scala.collection.mutable and scala.collection.immmutable repectively. By default, Scala always picks immutable collections. 
+Declaring a variable as a 'val' prevents it for being reassigned; still, this doesn't guarantee that the object it is referring to is immutable. Best transparency is obtained with using both 'val's and immutable objects: this is the recommended approach also when dealing with concurrency. Scala provides both mutable and immutable collections that can be found in packages 'scala.collection.mutable' and 'scala.collection.immmutable' respectively. By default, Scala always picks immutable collections. 
 
 \begin{lstlisting} 
 val x = 4
-x = 5 //Reasignment to val generates error
+x = 5 //Reassignment to val generates error
 \end{lstlisting}
 
 
-So, in order to create an immutable Scala object, it is necessary to have all the fields declared as vals + all the values to be immutable objects in turn. Case classes make it easier to accomplish that in as few lines of code as possible.
+So, in order to create an immutable Scala object, it is necessary to have all the fields declared as 'val's + all the values to be immutable objects in turn. Case classes make it easier to accomplish that in as few lines of code as possible.
 
-\subsection {Referential tranparency, pure functions}
+\subsection {Referential transparency,  pure functions}
 An expression is referentially transparent (RT) if it can be replaced by its resulting value without changing the behavior of the program. This must be true regardless of where the expression is used in the program. Programming without side effects leads to referential transparency. An example:
 
 \begin{lstlisting}
@@ -167,7 +167,7 @@ Examples of pure functions in Scala include:
 As a rule of thumb in Scala if a function has return type Unit, then most probably it has side effects and it is not pure. \par
 
 \subsection {High-order functions}
-The central concept of functional languages as pointed out by John Hughes \cite{DBLP:journals/cj/Hughes89} in 'Why Functional Programming Matters' is higher- order functions ; Hughes argues that when high order functions are combined with laziness techniques they greatly increase the modularity of software by providing novative ways (compared to other structured programming techniques) of 'gluing' modules together so programs can become more concise and easier to reason about. 
+The central concept of functional languages as pointed out by John Hughes \cite{DBLP:journals/cj/Hughes89} in 'Why Functional Programming Matters' is higher- order functions ; Hughes argues that when high order functions are combined with laziness techniques they greatly increase the modularity of software by providing innovative ways (compared to other structured programming techniques) of 'gluing' modules together so programs can become more concise and easier to reason about. 
 
 Before we begin talking about high-order functions we should first understand what does an order of a function mean:
 
@@ -178,8 +178,8 @@ Before we begin talking about high-order functions we should first understand wh
 \item Order k: Functions with domain and range of order k-1
 \end{itemize}
 
-So order 0 is represented by numbers, lists, characters, etc. Order 1 are functions wich work with order 0 data. So order 1 data are the well known functions that every programming language supports. 
-Functions with an order grater than 1 are callled higher-order functions and they fall at least in on of the following categories:
+So order 0 is represented by numbers, lists, characters, etc. Order 1 are functions which work with order 0 data. So order 1 data are the well known functions that every programming language supports. 
+Functions with an order grater than 1 are called higher-order functions and they fall at least in on of the following categories:
 \begin{itemize}
 \item they take other functions as parameters
 \item they return a function as a result
@@ -205,7 +205,7 @@ another type
 \end{itemize}
 [http://people.cs.aau.dk/~normark/prog3-03/pdf/higher-order-fu.pdf]
 
-A study about high-order functions metrics and their corelation with software modularity was also conducted by B. Muddu et. al. \cite{DBLP:conf/icse/MudduABP13}. The proposed metric was studying the coupling between high order functions in diferent modules. It might be useful to make use also of their modularity metric when assesing code functional-ness.\par 
+A study about high-order functions metrics and their correlation with software modularity was also conducted by B. Muddu et. al. \cite{DBLP:conf/icse/MudduABP13}. The proposed metric was studying the coupling between high order functions in different modules. It might be useful to make use also of their modularity metric when assessing code functional-ness.\par 
 
 \subsection {Monads}  \label{monads}
 Monads are a central design pattern of functional programming. They've been successfully used to abstract over well known problems in programming \cite{Jones01tacklingthe}: non-determinism as expressed by list, time/ concurrency, mutable state (see IO Monad Haskell), exception handling, foreign language calls.
@@ -222,7 +222,7 @@ def unit[T](x:T): M[T]
 
 \subsection {Lazy evaluation}
 Lazy evaluation or call-by-need is the opposite of eager evaluation(call-by-value) and it is an evaluation strategy which delays the evaluation of an expression until it is needed and only then computes the result and caches it for further evaluations. \par
-One advantage is the memory saving due to postponing the evaluation but it comes with a performance cost: you get faster intialization but later (when evaluation occurs) you suffer a performance penality.\par
+One advantage is the memory saving due to postponing the evaluation but it comes with a performance cost: you get faster initialization but later (when evaluation occurs) you suffer a performance penalty.\par
 
 Scala supports laziness by introducing the lazy keyword and call by name parameters. By default it supports strict evaluation in contrast with Haskell which is lazy by default.
 
@@ -250,7 +250,7 @@ object Test {
 \end{lstlisting}
 
 \section {State of the art - Literature study}
-In the first section we talked about elaborating a series of metrics, in order to asses one's code functional-ness but we didn't have the opportunity to provide a proper definition for the concept of a metric and it's existing state of affairs in software industry. An easy definiton would be that metrics offer a quantitative measure of a software property. 
+In the first section we talked about elaborating a series of metrics, in order to asses one's code functional-ness but we didn't have the opportunity to provide a proper definition for the concept of a metric and it's existing state of affairs in software industry. An easy definition would be that metrics offer a quantitative measure of a software property. 
 
 \subsection{Metrics overview and their use in FP languages}
 
@@ -258,10 +258,10 @@ In the first section we talked about elaborating a series of metrics, in order t
 
 A metric is a measurement function, and a software quality metric is "a function whose inputs are software data and whose output is a single numerical value that can be interpreted as the degree to which software possesses a given attribute that affects its quality'' \cite{Kaner04softwareengineering}. To some extent, metrics could be regarded as compiler warnings, signaling that a part of your code needs more testing. Software metrics are used in Software Engineering for helping with software development activities such as testing and refactoring, performance optimization, debugging, cost estimation, etc. Some common software metrics include : source line of code (LOC), number of functions, cyclomatic complexity, code coverage, cohesion, coupling. \par
 
-Study of software metrics has been an active area of research since early 70' targeting mostly object oriented and imperative languages \cite{RyderT05:TFP_2005_Intellect}; as for functional languages, the number of published papers is not the numoerous; some of the prior work on metrics for functional languages was started almost 20 years ago by K. van den Berg in 1995 \cite{DBLP:journals/infsof/BergB95} who proposed a set of metrics for evaluating code complexity of Miranda functional programming language and Harrison which studied code modularity for SML \cite{eps250597}; 10 years later, Ryder and Thompson proposed some metrics for Haskell \cite{RyderT05:TFP_2005_Intellect} whereas  Muddu et. al. developed metrics for Scala \cite{DBLP:conf/icse/MudduABP13}. We can corelate the few number of papers on FP with the fact that FP does have yet such large adoption in software industry compared to object oriented and imperative languages.  \par
+Study of software metrics has been an active area of research since early 70' targeting mostly object oriented and imperative languages \cite{RyderT05:TFP_2005_Intellect}; as for functional languages, the number of published papers is not the numerous; some of the prior work on metrics for functional languages was started almost 20 years ago by K. van den Berg in 1995 \cite{DBLP:journals/infsof/BergB95} who proposed a set of metrics for evaluating code complexity of Miranda functional programming language and Harrison which studied code modularity for SML \cite{eps250597}; 10 years later, Ryder and Thompson proposed some metrics for Haskell \cite{RyderT05:TFP_2005_Intellect} whereas  Muddu et. al. developed metrics for Scala \cite{DBLP:conf/icse/MudduABP13}. We can correlate the few number of papers on FP with the fact that FP does have yet such large adoption in software industry compared to object oriented and imperative languages.  \par
 
 \subsection{Static analysis of functional programs- K. van den Berg}
-K. van den Berg performed a coparison study regarding code coprehensibility of program code: how easy is it to a developer to read and understand a program in order to find and fix some errors or to adapt to changing requirements. The languages that were studied are Pascal and Miranda, the first being the representative for `imperative languages`, the last representing `functional languages`. One of the metrics he chose to use are Halstead and McGabe's, which were adapted for both programming paradigms. \par
+K. van den Berg performed a comparison study regarding code comprehensibility of a program: how easy is it to a developer to read and understand a program in order to find and fix some errors or to adapt to changing requirements. The languages that were studied are Pascal and Miranda, the first being the representative for `imperative languages`, the last representing `functional languages`. One of the metrics he chose to use are Halstead and McGabe's, which were adapted for both programming paradigms. \par
 
 Halstead metrics can be expressed as :
 
@@ -270,7 +270,7 @@ Halstead metrics can be expressed as :
 \item $\eta_2$ - the number of unique operands \par
 \item $N_1$ - the total number of operators \par
 \item$N_2$ - the total number of operands \par
-\item$\eta_2'$ - the number of different input/output parametes \par
+\item$\eta_2'$ - the number of different input/output parameters \par
 \end{itemize}
 
 Using this terminology, one can define the following:\par
@@ -297,12 +297,12 @@ What we take for our study of  K. van den Berg's paper is the adoption of Halste
 \subsection{Comparing Programming Paradigms: an Evaluation of Functional and Object-Oriented Programs - R.Harrisson et. al.}
 Another study that targeted a comparison between imperative and functional languages was that of R. Harrison et. al. \cite{eps250597} . After comparing C++ with SML they reached to the conclusion that SML code is more reusable then C++ but it also takes longer to be tested; one of the reason why testing takes so much was that SML needed to be reloaded before tests were run. \par
 
-Their approach was to find a correlation between development metrics such as : number of know errors (KE), time to fix errors(TKE), number of modification requests (MR), time to implement modifications(TMR) and a subjective assement of complexity(SC) and some code metrics; the code metrics of their choice where the number of non-commmented lines (ncsl), number of distinct functions ($N'$), number of distinct library functions (L), number of distinct domain functions(D), depth of function hierarchy chart, number of function declarations, number of function definitions. \par
+Their approach was to find a correlation between development metrics such as : number of know errors (KE), time to fix errors(TKE), number of modification requests (MR), time to implement modifications(TMR) and a subjective assessment of complexity(SC) and some code metrics; the code metrics of their choice where the number of non-commented lines (ncsl), number of distinct functions ($N'$), number of distinct library functions (L), number of distinct domain functions(D), depth of function hierarchy chart, number of function declarations, number of function definitions. \par
 
 A nice metric for reusability that we can further use in our pursue of code functional-ness is reusability expressed as the ratio between number of library functions called ($L$) and number of distinct functions ($N'$): $R = L / N'$. \par
 
 \subsection{Software Metrics: Measuring Haskell - Chris Ryder and Simon Thompson}
-In their paper, Ryder and Thompson propse a collection of software metrics of Haskell programs. They can be devided into:
+In their paper, Ryder and Thompson propose a collection of software metrics of Haskell programs. They can be divided into:
 \begin{itemize}
 \item pattern metrics - measuring pattern matching complexity
 \item distance metrics - scoping length, size, etc.
@@ -312,13 +312,13 @@ In their paper, Ryder and Thompson propse a collection of software metrics of Ha
 
 \subsubsection{Pattern metrics}
 \begin{itemize}
-\item Pattern size (PSIZ) - number of components of the pattern's abstract syntax tree (AST)
+\item Pattern size (PSIZ) - number of components of the pattern abstract syntax tree (AST)
 \item Number of pattern variables (NPVS) - pattern variables represent new identifiers that are added to the program scope
-\item Number of overriden/overrided pattern variables (NOPV) - one can mistakely override some variables already presented in scope when pattern matching
+\item Number of overriden/overrided pattern variables (NOPV) - one can easily override some variables already presented in scope when pattern matching
 \item Number of pattern constructors (PATC) 
 \item Number of wildcards used (WILD) -  wildcards may convey information about the structure of items in the pattern, e.g. the position of constructor arguments.
 \item Depth of nesting - how many patterns are nested in one pattern matching expression e.g. Car(Wheels(Michelin(\_)), Motor(Wolkswagen(100CP(\_))))
-\subitem Sum of the dept of nesting (SDNP)
+\subitem Sum of the depth of nesting (SDNP)
 \subitem Maximum depth of nesting (MDNP)
 \end{itemize}
 
@@ -387,7 +387,7 @@ Basavaraju Muudu et. al. \cite{DBLP:conf/icse/MudduABP13} propose a series of me
 
 \begin{itemize}
 \item S represents the software system, which consists of a series of modules $\varrho= \{ p_1,p_2,..,p_N \}$ and where $p_i$ is a system module, $1<=i<=N$
-\item C - the set of all classes in the system S, C(p) -> the subset of all the classes containde in module p
+\item C - the set of all classes in the system S, C(p) -> the subset of all the classes contained in module p
 \item M - the set of all methods/functions in the system S; M(c) is the subset of methods defined in class $c \in C$ and M(p) - the subset of functions defined in module $p \in \varrho$
 \item NC(m1,m2) - number of calls from m2 to m1
 \item FOC(m1,m2) - true if m2 is used as a parameter in a function call within m1; NFOC(m1,m2) counts the number of such calls
@@ -468,20 +468,20 @@ $IPFOI(S) = \frac 1 {|\varrho|} \sum_{ p \in \varrho } IPFOI(p)  $
 \subsubsection{Module discovery}
 They give the following definition for a module: ' A module is a logical collection of related files which can be modified and tested independently. A well modularized system will have low inter-module coupling and high intra-module cohesion. It helps the designers to add new modules easily.'\cite{DBLP:conf/icse/MudduABP13}. As one can see, this definition does not imply an exact rule for discovering  modules, so the system can contain a variable number of modules, depending how one delimits a module. \par
 The technique they chose to use for delimiting system modules  was Modularizing by  Inverse-Depth heuristic, which is based of the project's file directory structure; they start at the source root folder and compute for each branch the maximum depth; then starting from the bottom up, they assign a module up to a certain depth; in their study, they use inverse depth of 1 for selecting modules, arguing that these are the closest approximation to actual logical modules. We would like to try other modularization techniques: package based, SBT (Scala Build Tool)  modularization and relate them to our problem: establishing code functional-ness: would a good 'functional-ness' value for our proposed metric lead also to improved modularity?.\par
-The authors also suggest a metric that penalizes the coupling of multiple modules through inheritence and trait implementation. We should try working with penalization metrics, that count either the presence of absence of a feature in the source code.
+The authors also suggest a metric that penalizes the coupling of multiple modules through inheritance and trait implementation. We should try working with penalizing metrics, that count either the presence of absence of a feature in the source code.
 
 \subsection {Combining Functional and Imperative Programming for Multicore Software: An Empirical Study Evaluating Scala and Java}
 Pankratius et. al. performed a comparison study on Scala and Java's parallel programming features and performance \cite{Pankratius_combiningfunctional}. Their study shows that writing Scala code results in fewer lines of code than in Java and it preserves the application performance overall. One problem they notice is that Scala's support for parallelism is not as good as Java's. On top of that, Scala seems to require more debugging in testing effort which is quite problematic. One would expect that functional code should lead to fewer, easy to test lines of code. \par
 
 An interesting point in their conclusion is that the top software developers participating in their study wrote a hybrid program, half functional and half imperative. So what would be the right balance between FP and imperative for a 'good Scala program'? \par
 
-In order to make a distinction between functional and imperative programming, the authors classifed key language constructs in imperative ones: var, object, array, while, for,
-abstract, import java and into functional ones: val, list, map,filter, flatmap, foreach, ::: (list concatenation),:: (list cons operator). That way they could asses how much of the code uses functional keywords and much is imperative.  Of course this measurement is a basic one but it is a good place to start from in our pursuit of code functional-ness.
+In order to make a distinction between functional and imperative programming, the authors classified key language constructs in imperative ones: var, object, array, while, for,
+abstract, import Java and into functional ones: val, list, map,filter, flatmap, foreach, ::: (list concatenation),:: (list cons operator). That way they could asses how much of the code uses functional keywords and much is imperative.  Of course this measurement is a basic one but it is a good place to start from in our pursuit of code functional-ness.
 
 \subsection {Static analysis tools for Scala}
-There are already a couple of static analysis tools written for Scala : ScalaStyle, ScapeGoat, Wart remover, Linger and Scala Abide. These tools are looking possible errors that might appear in Scala code and also checks for a certain style of coding. Some of the checks they perform are: identation, illegal imports, multiple declared strings, null appearances, redundant if statements, cyclomatic complexity, unreachable catch statements, unexpected recursive definitions, unassigned variables, shadowing etc. \par
+There are already a couple of static analysis tools written for Scala : ScalaStyle, ScapeGoat, Wart remover, Linger and Scala Abide. These tools are looking possible errors that might appear in Scala code and also checks for a certain style of coding. Some of the checks they perform are: indentation, illegal imports, multiple declared strings, null appearances, redundant if statements, cyclomatic complexity, unreachable catch statements, unexpected recursive definitions, unassigned variables, shadowing etc. \par
 
-Some metrics that could turn out to be useful for our study are  the presence, absence of vars and cyclomatic complexity; ScalaStyle checks that classes and objects do not define mutable fields and that functions do not define mutable variables (VarFieldChecker, VarLocalChecker) \cite{scalastyle} and it also has a metric for cyclomatic complexity. At least from an implementation perspective it would be worthwhile to take them into account.\par
+Some metrics that could turn out to be useful for our study are  the presence, absence of 'vars' and cyclomatic complexity; ScalaStyle checks that classes and objects do not define mutable fields and that functions do not define mutable variables (VarFieldChecker, VarLocalChecker) \cite{scalastyle} and it also has a metric for cyclomatic complexity. At least from an implementation perspective it would be worthwhile to take them into account.\par
 
 
 \section{Conclusions and Future work}
