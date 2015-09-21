@@ -250,7 +250,7 @@ object Test {
 \end{lstlisting}
 
 \section {State of the art - Literature study}
-In the first section we talked about elaborating a series of metrics, in order to asses one's code functional-ness but we didn't have the opportunity to provide a proper definition for the concept of a metric and it's existing state of affairs in software industry. An easy definition would be that metrics offer a quantitative measure of a software property. 
+In the first section we talked about elaborating a series of metrics, in order to assess one's code functional-ness but we didn't have the opportunity to provide a proper definition for the concept of a metric and it's existing state of affairs in software industry. An easy definition would be that metrics offer a quantitative measure of a software property. 
 
 \subsection{Metrics overview and their use in FP languages}
 
@@ -261,7 +261,7 @@ A metric is a measurement function, and a software quality metric is "a function
 Study of software metrics has been an active area of research since early 70' targeting mostly object oriented and imperative languages \cite{RyderT05:TFP_2005_Intellect}; as for functional languages, the number of published papers is not the numerous; some of the prior work on metrics for functional languages was started almost 20 years ago by K. van den Berg in 1995 \cite{DBLP:journals/infsof/BergB95} who proposed a set of metrics for evaluating code complexity of Miranda functional programming language and Harrison which studied code modularity for SML \cite{eps250597}; 10 years later, Ryder and Thompson proposed some metrics for Haskell \cite{RyderT05:TFP_2005_Intellect} whereas  Muddu et. al. developed metrics for Scala \cite{DBLP:conf/icse/MudduABP13}. We can correlate the few number of papers on FP with the fact that FP does have yet such large adoption in software industry compared to object oriented and imperative languages.  \par
 
 \subsection{Static analysis of functional programs- K. van den Berg}
-K. van den Berg performed a comparison study regarding code comprehensibility of a program: how easy is it to a developer to read and understand a program in order to find and fix some errors or to adapt to changing requirements. The languages that were studied are Pascal and Miranda, the first being the representative for `imperative languages`, the last representing `functional languages`. One of the metrics he chose to use are Halstead and McGabe's, which were adapted for both programming paradigms. \par
+K. van den Berg performed a comparison study regarding code comprehensibility of a program: how easy is it to a developer to read and understand a program in order to find and fix some errors or to adapt to changing requirements. The languages that were studied are Pascal and Miranda, the first being the representative for `imperative languages`, the last representing `functional languages`. One of the metrics he chose to use are Halstead and McCabe's, which were adapted for both programming paradigms. \par
 
 Halstead metrics can be expressed as :
 
@@ -283,7 +283,7 @@ Using this terminology, one can define the following:\par
 \item $E = V / L $ - effort to generate a program
 \end{itemize}
 
-McGabe's metrics for ciclomatic complexity focus on the decision structure of a program. The program is viewed as a decision graph G, having a unique entry and exit point. Every edge in the graph represents a decision branch while every node is a decision point. This metric is related to the difficulty of testing a program. The metric can be expressed as :
+McCabe's metrics for ciclomatic complexity focus on the decision structure of a program. The program is viewed as a decision graph G, having a unique entry and exit point. Every edge in the graph represents a decision branch while every node is a decision point. This metric is related to the difficulty of testing a program. The metric can be expressed as :
 \begin{itemize}
 \item $e$ - the number of edges in the program graph \par
 \item $n$ - the number of nodes \par
@@ -292,7 +292,7 @@ McGabe's metrics for ciclomatic complexity focus on the decision structure of a 
 
 The study of Curtis (1981) shows empirical evidence that the complexity metrics of McCabe and Halstead relate to the psychological complexity, as expressed in the difficulty in understanding and modifying software. The relation between syntactic complexity and cognitive complexity has been investigated by Khalil \& Clark (1989). Shen, Conte \& Dunsmore (1983) give a critical review of Software Science. They show that the effort E, as defined by Halstead, correlates with the understandability of programs. . \cite{DBLP:journals/infsof/BergB95}. \par
 
-What we take for our study of  K. van den Berg's paper is the adoption of Halstead and McGabe's metrics for functional programs. Using these metrics we could asses the complexity of our functional program and we could correlate it with other metrics. 
+What we take for our study of  K. van den Berg's paper is the adoption of Halstead and McCabe's metrics for functional programs. Using these metrics we could asses the complexity of our functional program and we could correlate it with other metrics. 
 
 \subsection{Comparing Programming Paradigms: an Evaluation of Functional and Object-Oriented Programs - R.Harrisson et. al.}
 Another study that targeted a comparison between imperative and functional languages was that of R. Harrison et. al. \cite{eps250597} . After comparing C++ with SML they reached to the conclusion that SML code is more reusable then C++ but it also takes longer to be tested; one of the reason why testing takes so much was that SML needed to be reloaded before tests were run. \par
