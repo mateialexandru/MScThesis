@@ -290,9 +290,7 @@ McCabe's metrics for ciclomatic complexity focus on the decision structure of a 
 \item $v(G) = e - n + 2$ - the ciclomatic complexity number
 \end{itemize}
 
-The study of Curtis (1981) shows empirical evidence that the complexity metrics of McCabe and Halstead relate to the psychological complexity, as expressed in the difficulty in understanding and modifying software. The relation between syntactic complexity and cognitive complexity has been investigated by Khalil \& Clark (1989). Shen, Conte \& Dunsmore (1983) give a critical review of Software Science. They show that the effort E, as defined by Halstead, correlates with the understandability of programs. . \cite{DBLP:journals/infsof/BergB95}. \par
-
-What we take for our study of  K. van den Berg's paper is the adoption of Halstead and McCabe's metrics for functional programs. Using these metrics we could asses the complexity of our functional program and we could correlate it with other metrics. 
+K. van den Berg is one of the first who worked on metrics for functional programs; although it's research is mainly focused on code complexity of functional programs, the proposed Halstead and McCabe metrics that were adopted for Miranda provide a useful perspective on how to reason about operands and operators when it comes to functional languages. 
 
 \subsection{Comparing Programming Paradigms: an Evaluation of Functional and Object-Oriented Programs - R.Harrisson et. al.}
 Another study that targeted a comparison between imperative and functional languages was that of R. Harrison et. al. \cite{eps250597} . After comparing C++ with SML they reached to the conclusion that SML code is more reusable then C++ but it also takes longer to be tested; one of the reason why testing takes so much was that SML needed to be reloaded before tests were run. \par
@@ -330,7 +328,7 @@ In their paper, Ryder and Thompson propose a collection of software metrics of H
 
 \begin{figure}[h!]
   \includegraphics[width=\linewidth]{scope-distance.png}
-  \caption{Measuring distance by the number of declarations brought into scope}
+  \caption{Measuring distance by the number of declarations brought into scope \cite{eps250597}}
   \label{fig:scope-distance}
 \end{figure}
 
@@ -338,7 +336,7 @@ In their paper, Ryder and Thompson propose a collection of software metrics of H
 
 \begin{figure}[h!]
   \includegraphics[width=\linewidth]{scope-measure.png}
-  \caption{Measuring distance between use of identifier and import statement }
+  \caption{Measuring distance between use of identifier and import statement \cite{eps250597}}
   \label{fig:scope-measure}
 \end{figure}
 
@@ -357,7 +355,7 @@ In their paper, Ryder and Thompson propose a collection of software metrics of H
 \item Callgraph Width (CGWD) - The subgraph of a function may be cyclic but can be transformed into a tree by breaking its cycle \ref{fig:subgraph-brake}
 \begin{figure}[h!]
   \includegraphics[width=\linewidth]{subgraph-brake.png}
-  \caption{Breaking a cycle of a subgraph}
+  \caption{Breaking a cycle of a subgraph  \cite{eps250597}}
   \label{fig:subgraph-brake}
 \end{figure}
 
@@ -375,7 +373,7 @@ In order to validate their metrics, Ryder and Thompson performed analysis over a
 
 \begin{figure}[h!]
   \includegraphics[width=\linewidth]{cross-correlation.png}
-  \caption{Strongly correlated metrics}
+  \caption{Strongly correlated metrics  \cite{eps250597}}
   \label{fig:cross-correlation}
 \end{figure}
 
